@@ -35,6 +35,9 @@ export const metadata: Metadata = {
     description:
       "Publish YouTube visualizer videos from audio + artwork. 10+ free AI audio tools included.",
   },
+  verification: {
+    google: "lCjQq4O_dnL-kifeDzBLCmJuCg8s99TbZNT9PAtvjdI",
+  },
   metadataBase: new URL("https://tunevid.com"),
 };
 
@@ -57,6 +60,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta
+          name="google-site-verification"
+          content="lCjQq4O_dnL-kifeDzBLCmJuCg8s99TbZNT9PAtvjdI"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
