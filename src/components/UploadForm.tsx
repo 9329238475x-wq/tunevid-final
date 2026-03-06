@@ -6,7 +6,7 @@ import { useDropzone } from "react-dropzone";
 import { signIn, useSession } from "next-auth/react";
 import VisualizerCanvas from "./VisualizerCanvas";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 const MAX_SIZE  = 50 * 1024 * 1024; // 50 MB
 const fmt = (b: number) => `${(b / 1024 / 1024).toFixed(1)} MB`;
 
@@ -411,3 +411,4 @@ export default function UploadForm() {
     </div>
   );
 }
+

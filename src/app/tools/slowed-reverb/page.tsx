@@ -8,7 +8,7 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { Loader2, Music, Sparkles, ArrowLeft, Download, AlertCircle, CheckCircle } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
 const REVERB_PRESETS = [
@@ -354,3 +354,4 @@ export default function SlowedReverbPage() {
     </div>
   );
 }
+

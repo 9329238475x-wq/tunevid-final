@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import axios, { AxiosInstance } from "axios";
 import { useMemo } from "react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 
 /**
  * Hook that returns an authenticated axios instance.
@@ -47,3 +47,4 @@ export function getAuthHeaders(accessToken?: string): Record<string, string> {
     if (!accessToken) return {};
     return { Authorization: `Bearer ${accessToken}` };
 }
+

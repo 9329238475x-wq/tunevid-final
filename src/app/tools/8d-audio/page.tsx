@@ -8,7 +8,7 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { Headphones, Loader2, RotateCw, ArrowLeft, Download, AlertCircle, CheckCircle, Info } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
 const ROTATION_PATTERNS = [
@@ -364,3 +364,4 @@ export default function EightDAudioPage() {
     </div>
   );
 }
+

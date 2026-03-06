@@ -8,7 +8,7 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { ArrowDown, ArrowUp, Loader2, Trash2, UploadCloud, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 const MAX_FILE_SIZE = 500 * 1024 * 1024;
 
 export default function AudioMergerPage() {
@@ -272,3 +272,4 @@ export default function AudioMergerPage() {
     </div>
   );
 }
+

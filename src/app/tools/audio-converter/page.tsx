@@ -8,7 +8,7 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { FileAudio, Loader2, UploadCloud, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 const MAX_FILE_SIZE = 100 * 1024 * 1024;
 
 const FORMAT_OPTIONS = ["MP3", "WAV", "FLAC", "M4A", "OGG"] as const;
@@ -253,3 +253,4 @@ export default function AudioConverterPage() {
     </div>
   );
 }
+

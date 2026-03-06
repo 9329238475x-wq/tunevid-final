@@ -25,7 +25,7 @@ import {
     Timer,
 } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 
 interface ToolUsage {
     tool_name: string;
@@ -622,3 +622,4 @@ export default function DashboardPage() {
         </Suspense>
     );
 }
+

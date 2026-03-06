@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://10.226.209.14:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 
 type HistoryItem = {
   id: string;
@@ -85,3 +85,4 @@ export default function UserHistory() {
     </div>
   );
 }
+

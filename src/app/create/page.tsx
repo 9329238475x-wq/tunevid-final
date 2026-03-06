@@ -8,7 +8,7 @@ import Uploader from "../../components/Uploader";
 import UpgradeModal from "../../components/UpgradeModal";
 import { Layers, Crown, Zap, Clock, AlertTriangle } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 
 export default function CreatePage() {
     const { data: session, status } = useSession();
@@ -183,3 +183,4 @@ function Sparkles(props: any) {
         </svg>
     );
 }
+

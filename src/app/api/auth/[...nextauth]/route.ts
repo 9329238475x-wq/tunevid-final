@@ -74,7 +74,7 @@ const handler = NextAuth({
       // Sync user with backend on first login
       if (account?.provider === "google" && token.email) {
         try {
-          const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+          const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
           await fetch(`${API_BASE}/api/user/me`, {
             method: "GET",
             headers: {
