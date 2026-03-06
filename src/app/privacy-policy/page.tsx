@@ -119,7 +119,7 @@ export default function PrivacyPolicyPage() {
                 <h2>9. Contact Us</h2>
                 <p>
                     If you have any questions about this Privacy Policy, please contact
-                    us at <a href="mailto:privacy@tunevid.com">privacy@tunevid.com</a>.
+                    us at <a href="mailto:9329238475x@gmail.com">9329238475x@gmail.com</a>.
                 </p>
             </div>
         </div>

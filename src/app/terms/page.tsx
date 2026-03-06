@@ -114,7 +114,7 @@ export default function TermsPage() {
                 <h2>11. Contact</h2>
                 <p>
                     Questions about these Terms? Contact us at
-                    <a href="mailto:legal@tunevid.com">legal@tunevid.com</a>.
+                    <a href="mailto:9329238475x@gmail.com">9329238475x@gmail.com</a>.
                 </p>
             </div>
         </div>

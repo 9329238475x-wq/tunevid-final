@@ -57,7 +57,7 @@ export default function AboutPage() {
                 <h2>Contact</h2>
                 <p>
                     Have questions, feedback, or feature requests? Reach out to us at
-                    <a href="mailto:contact@tunevid.com">contact@tunevid.com</a>.
+                    <a href="mailto:9329238475x@gmail.com">9329238475x@gmail.com</a>.
                 </p>
             </div>
         </div>
