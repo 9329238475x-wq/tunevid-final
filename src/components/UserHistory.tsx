@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 
 type HistoryItem = {
   id: string;

@@ -27,7 +27,7 @@ import {
     Send,
 } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
 
 const fmt = (bytes: number) => `${(bytes / (1024 * 1024)).toFixed(1)} MB`;

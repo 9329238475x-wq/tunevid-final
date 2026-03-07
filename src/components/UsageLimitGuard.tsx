@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 import { Clock, Crown, AlertTriangle, Zap } from "lucide-react";
 import Link from "next/link";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 
 interface UsageInfo {
   tool_name: string;

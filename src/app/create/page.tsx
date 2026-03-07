@@ -8,7 +8,7 @@ import Uploader from "../../components/Uploader";
 import UpgradeModal from "../../components/UpgradeModal";
 import { Layers, Crown, Zap, Clock, AlertTriangle } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 
 export default function CreatePage() {
     const { data: session, status } = useSession();

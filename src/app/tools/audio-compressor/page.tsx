@@ -8,7 +8,7 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { HardDriveDownload, Loader2, Minimize2, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 1024 * 1024 * 1024; // 1GB
 
 const BITRATE_PRESETS = [
