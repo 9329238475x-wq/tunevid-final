@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import {
@@ -30,12 +31,16 @@ const TOOLS_PREVIEW = [
     { icon: Zap, label: "Bass Booster", color: "text-red-400" },
 ];
 
-export default function Landing() {
+type LandingProps = {
+    seoContent?: ReactNode;
+};
+
+export default function Landing({ seoContent }: LandingProps) {
     const { data: session } = useSession();
 
     return (
         <div className="mx-auto max-w-6xl px-6 py-12 space-y-20 text-zinc-900 dark:text-zinc-100">
-            {/* ── HERO SECTION ── */}
+            {/* â”€â”€ HERO SECTION â”€â”€ */}
             <motion.section 
                 className="relative flex flex-col items-center text-center space-y-8 py-8 md:py-16"
                 variants={staggerContainer}
@@ -69,7 +74,7 @@ export default function Landing() {
                     className="text-base sm:text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl leading-relaxed"
                 >
                     The all-in-one studio to create audio visualizers, remove vocals,
-                    boost bass, find BPM, and publish directly to YouTube — completely free.
+                    boost bass, find BPM, and publish directly to YouTube â€” completely free.
                 </motion.p>
 
                 {/* CTA Buttons */}
@@ -79,7 +84,7 @@ export default function Landing() {
                 >
                     <Link href={session ? "/create" : "/login"}>
                         <AnimatedButton className="group inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/20 hover:bg-emerald-500 hover:shadow-emerald-500/30 transition-all duration-200 btn-depth">
-                            {session ? "Create Video" : "Get Started — It's Free"}
+                            {session ? "Create Video" : "Get Started â€” It's Free"}
                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2} />
                         </AnimatedButton>
                     </Link>
@@ -108,13 +113,13 @@ export default function Landing() {
                 </motion.div>
             </motion.section>
 
-            {/* ── 3 CORE PILLARS ── */}
+            {/* â”€â”€ 3 CORE PILLARS â”€â”€ */}
             <section className="grid gap-5 md:grid-cols-3">
                 {[
                     {
                         icon: Sparkles,
                         title: "AI Audio Studio",
-                        copy: "Remove vocals, boost bass, create 8D audio, find BPM — 13+ professional audio tools powered by AI and FFmpeg.",
+                        copy: "Remove vocals, boost bass, create 8D audio, find BPM â€” 13+ professional audio tools powered by AI and FFmpeg.",
                         color: "text-purple-400",
                     },
                     {
@@ -141,7 +146,7 @@ export default function Landing() {
                 ))}
             </section>
 
-            {/* ── HOW IT WORKS (1-2-3 Steps) ── */}
+            {/* â”€â”€ HOW IT WORKS (1-2-3 Steps) â”€â”€ */}
             <section className="rounded-xl border border-zinc-200 bg-white p-8 shadow-sm space-y-8 dark:border-zinc-800 dark:bg-zinc-950 card-feature transition-all duration-200">
                 <div className="text-center space-y-2">
                     <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">How It Works</h2>
@@ -160,14 +165,14 @@ export default function Landing() {
                             step: "02",
                             icon: Zap,
                             title: "Process with AI",
-                            copy: "Remove vocals, boost bass, add reverb — or go straight to video rendering with one click.",
+                            copy: "Remove vocals, boost bass, add reverb â€” or go straight to video rendering with one click.",
                             color: "text-blue-400",
                         },
                         {
                             step: "03",
                             icon: Youtube,
                             title: "Publish to YouTube",
-                            copy: "Set your title, description, and privacy — then hit publish. Your video goes live instantly.",
+                            copy: "Set your title, description, and privacy â€” then hit publish. Your video goes live instantly.",
                             color: "text-red-400",
                         },
                     ].map((item) => (
@@ -183,7 +188,7 @@ export default function Landing() {
                 </div>
             </section>
 
-            {/* ── TOOLS PREVIEW STRIP ── */}
+            {/* â”€â”€ TOOLS PREVIEW STRIP â”€â”€ */}
             <section className="space-y-6">
                 <div className="flex items-center justify-between">
                     <div>
@@ -218,7 +223,9 @@ export default function Landing() {
                 </div>
             </section>
 
-            {/* ── ENTERPRISE FEATURES ── */}
+            {seoContent}
+
+            {/* â”€â”€ ENTERPRISE FEATURES â”€â”€ */}
             <section className="space-y-8">
                 <div className="text-center space-y-2">
                     <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Built for Creators Who Ship</h2>
@@ -229,7 +236,7 @@ export default function Landing() {
                         { icon: Shield, title: "Secure by Design", copy: "OAuth-based access means TuneVid never sees or stores your password." },
                         { icon: Clock, title: "Fast Rendering", copy: "Optimized FFmpeg pipeline renders visualizer videos in minutes, not hours." },
                         { icon: Layers, title: "Precision Metadata", copy: "Full control over titles, descriptions, tags, and privacy before every publish." },
-                        { icon: Youtube, title: "Artist-First Delivery", copy: "Videos publish to your own channel — monetization and control stay with you." },
+                        { icon: Youtube, title: "Artist-First Delivery", copy: "Videos publish to your own channel â€” monetization and control stay with you." },
                         { icon: Upload, title: "Batch-Ready Workflow", copy: "Repeatable, consistent flow so your audience sees new releases on schedule." },
                         { icon: Shield, title: "Privacy Focused", copy: "All files are auto-deleted after processing. We never keep copies." },
                     ].map((f) => (
@@ -242,7 +249,7 @@ export default function Landing() {
                 </div>
             </section>
 
-            {/* ── FAQ ── */}
+            {/* â”€â”€ FAQ â”€â”€ */}
             <section className="rounded-xl border border-zinc-200 bg-white p-6 sm:p-8 shadow-sm space-y-6 dark:border-zinc-800 dark:bg-zinc-950 card-elevated transition-all duration-200">
                 <div>
                     <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">Frequently Asked Questions</h2>
@@ -265,7 +272,7 @@ export default function Landing() {
                 </div>
             </section>
 
-            {/* ── SEO-RICH TEXT SECTION (AdSense compliance) ── */}
+            {/* â”€â”€ SEO-RICH TEXT SECTION (AdSense compliance) â”€â”€ */}
             <section className="rounded-xl border border-zinc-200 bg-white p-6 sm:p-8 shadow-sm space-y-6 dark:border-zinc-800 dark:bg-zinc-950 card-elevated">
                 <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
                     The Complete Audio Toolkit for YouTube Creators
@@ -300,7 +307,7 @@ export default function Landing() {
                         featuring optional crossfade transitions.
                     </p>
                     <p>
-                        The <strong>YouTube Video Uploader</strong> is the crown jewel — upload your MP3 and cover art,
+                        The <strong>YouTube Video Uploader</strong> is the crown jewel â€” upload your MP3 and cover art,
                         and TuneVid renders a bass-reactive audio visualizer video and publishes it directly to your
                         YouTube channel via the YouTube Data API v3. Secure OAuth 2.0 authentication ensures your
                         account stays safe, and all files are automatically deleted after processing.
@@ -308,21 +315,22 @@ export default function Landing() {
                 </div>
             </section>
 
-            {/* ── FINAL CTA ── */}
+            {/* â”€â”€ FINAL CTA â”€â”€ */}
             <section className="rounded-xl bg-gradient-to-br from-emerald-600 to-cyan-600 p-8 sm:p-12 text-center space-y-5">
                 <h2 className="text-2xl sm:text-3xl font-bold text-white">Ready to Create?</h2>
                 <p className="text-sm text-emerald-100 max-w-xl mx-auto">
                     Join thousands of creators using TuneVid to process audio, create visualizers,
-                    and publish to YouTube — all for free.
+                    and publish to YouTube â€” all for free.
                 </p>
                 <Link
                     href={session ? "/create" : "/login"}
                     className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-bold text-emerald-700 shadow-lg hover:bg-emerald-50 transition btn-depth"
                 >
-                    {session ? "Start Creating" : "Get Started — It's Free"}
+                    {session ? "Start Creating" : "Get Started â€” It's Free"}
                     <ArrowRight className="h-4 w-4" strokeWidth={2} />
                 </Link>
             </section>
         </div>
     );
 }
+

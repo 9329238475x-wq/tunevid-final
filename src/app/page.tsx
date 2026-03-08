@@ -4,142 +4,41 @@ import Landing from "../components/Landing";
 
 export default function Home() {
   return (
-    <div className="pb-20">
-      <Landing />
-
-      <section className="mx-auto mt-10 max-w-6xl px-6">
-        <div className="rounded-2xl border border-zinc-200 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/70 md:p-10">
-          <div className="max-w-4xl space-y-10">
-            <div className="space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">
-                TuneVid Knowledge Hub
-              </p>
-              <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 md:text-3xl">
-                What is TuneVid?
-              </h2>
-              <p className="text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                TuneVid is an AI-powered creator workspace for musicians, editors, DJs, and YouTube-first artists
-                who want faster production without sacrificing quality. Instead of jumping between many disconnected
-                apps, you can clean audio, transform vocals, adjust tempo, isolate stems, and prepare publish-ready
-                output from one modern dashboard. Our tools are designed for real creator workflows: fast previews,
-                practical export settings, and simple controls that help you move from idea to upload quickly.
-              </p>
-              <p className="text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                Beyond one-click processing, TuneVid focuses on repeatable results for independent creators. That
-                means stable conversion pipelines, transparent file handling, and purpose-built utilities like vocal
-                remover, silence remover, audio trimmer, and YouTube uploader. Whether you are producing karaoke
-                tracks, remix stems, podcast clips, or social media snippets, TuneVid helps you create professional
-                audio and video assets with less technical friction and more creative control.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 md:text-2xl">
-                How to Create Music Visualizers for YouTube
-              </h3>
-              <div className="space-y-4 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                <p>
-                  Step 1: Start with the right source files. Export your final master audio in a high-quality format
-                  such as WAV or a high-bitrate MP3, then prepare clean artwork at square or landscape resolution.
-                  The most common mistake creators make is building a visualizer from unfinished audio. If your mix is
-                  still changing, visuals will need to be rebuilt each time. Lock your final version first so your
-                  upload process stays fast and predictable.
-                </p>
-                <p>
-                  Step 2: Upload your audio and cover image in TuneVid Create. The uploader is built to handle mobile
-                  and desktop workflows, so you can start a project from anywhere. Keep your title and metadata ready:
-                  video title, description, tags, category, and visibility. Strong metadata improves discoverability
-                  and helps YouTube understand the audience for your content.
-                </p>
-                <p>
-                  Step 3: Optimize your track before rendering video. If the song has long pauses, remove silence to
-                  improve retention. If vocals are too dominant for a lyric-free channel, use vocal remover to generate
-                  an instrumental version. If the loudness is inconsistent, run compression and normalization before
-                  publishing. Small improvements here can increase watch time because listeners hear a more consistent,
-                  polished output from the first second.
-                </p>
-                <p>
-                  Step 4: Design with brand consistency in mind. Pick one visual style and reuse it across releases so
-                  your channel becomes recognizable. Use readable titles in descriptions, include artist credits, and
-                  avoid crowded thumbnails. Many channels underperform because the visualizer video and channel brand
-                  look disconnected. Consistency builds trust and improves click-through rate over time.
-                </p>
-                <p>
-                  Step 5: Publish strategically. When uploading to YouTube, choose the right privacy setting and make
-                  sure your description includes useful context: genre, mood, credits, and links. Add timestamped
-                  sections for longer mixes, place related tracks in playlists, and pin a comment with your streaming
-                  links. After publishing, watch analytics for retention drop-off points. If viewers leave early, trim
-                  intros and tighten structure in your next upload. Sustainable channel growth comes from this cycle:
-                  publish, measure, refine, and repeat.
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 md:text-2xl">Frequently Asked Questions</h3>
-              <div className="space-y-3">
-                <details className="group rounded-xl border border-zinc-200 bg-white/70 p-4 dark:border-zinc-800 dark:bg-zinc-900/40">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                    Is TuneVid free to use?
-                  </summary>
-                  <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                    TuneVid provides free core tools so creators can test, produce, and publish without a high upfront
-                    cost. Usage policies can evolve as infrastructure grows, but the product direction remains focused on
-                    accessibility for independent artists and small creator teams. Always check current limits on the
-                    tool page before starting large batches.
-                  </p>
-                </details>
-
-                <details className="group rounded-xl border border-zinc-200 bg-white/70 p-4 dark:border-zinc-800 dark:bg-zinc-900/40">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                    How does Vocal Remover work?
-                  </summary>
-                  <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                    Vocal removal is powered by deep-learning source separation models. These models analyze frequency,
-                    timing, and stereo patterns to estimate which parts belong to vocals versus instruments. The result
-                    is usually delivered as stems, such as vocals, drums, bass, and other instruments. Output quality
-                    depends on mix complexity, effects, and source compression.
-                  </p>
-                </details>
-
-                <details className="group rounded-xl border border-zinc-200 bg-white/70 p-4 dark:border-zinc-800 dark:bg-zinc-900/40">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                    Can I upload directly to YouTube from TuneVid?
-                  </summary>
-                  <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                    Yes. TuneVid supports YouTube publishing with metadata controls including title, description, tags,
-                    privacy status, and audience selection. This reduces manual upload work and keeps your publishing
-                    workflow in one place. You should still review each upload in YouTube Studio for final checks.
-                  </p>
-                </details>
-
-                <details className="group rounded-xl border border-zinc-200 bg-white/70 p-4 dark:border-zinc-800 dark:bg-zinc-900/40">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                    Which formats are supported?
-                  </summary>
-                  <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                    Most tools accept common creator formats such as MP3, WAV, FLAC, JPG, PNG, and WebP. For best
-                    results, use the highest quality source available and avoid heavily compressed files where possible.
-                    Clean source files improve separation accuracy, compression quality, and final export clarity.
-                  </p>
-                </details>
-
-                <details className="group rounded-xl border border-zinc-200 bg-white/70 p-4 dark:border-zinc-800 dark:bg-zinc-900/40">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                    Is my data secure on TuneVid?
-                  </summary>
-                  <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                    TuneVid is designed to process uploads for active jobs rather than store creator files long term.
-                    Privacy and retention behavior should always be verified through the Privacy Policy and Terms pages.
-                    If you manage sensitive client media, use project-specific naming and keep local backups of all
-                    source and exported assets as part of standard production practice.
-                  </p>
-                </details>
-              </div>
-            </div>
-          </div>
+    <Landing
+      seoContent={
+        <div id="seo-content" className="max-w-4xl mx-auto px-6 py-12 prose dark:prose-invert">
+          <h2>Why TuneVid is the Best for Creators</h2>
+          <p>
+            The modern creator economy moves fast, and publishing quality content consistently requires more than talent alone.
+            Creators need reliable workflows, speed, and output quality they can trust. TuneVid is built for that exact purpose.
+            It is a creator-first platform where <strong>AI audio tools</strong>, <strong>Video Visualizer</strong> workflows,
+            and practical <strong>YouTube automation</strong> support come together in one place, so users can move from raw idea
+            to published content without unnecessary friction.
+          </p>
+          <p>
+            A major strength of TuneVid is practical utility. Many products look impressive but fail in daily production use.
+            TuneVid focuses on what creators actually do every day: clean audio, trim content, isolate stems, convert formats,
+            and prepare media for publishing. Tools like Vocal Remover, Noise Reducer, Silence Remover, and Audio Converter help
+            music creators, podcasters, and short-form editors reduce repetitive manual work and ship polished output faster.
+          </p>
+          <p>
+            Visual publishing is another key advantage. Audio processing alone is often not enough for YouTube growth. TuneVid
+            helps creators pair audio with visual output through a streamlined <strong>Video Visualizer</strong> pipeline. This
+            improves presentation quality, makes uploads more engaging, and supports stronger channel branding over time. Creators
+            can manage artwork, metadata, and production flow with less complexity.
+          </p>
+          <p>
+            The platform also supports a production mindset around <strong>YouTube automation</strong>. Instead of repeating the
+            same manual steps for every release, creators can rely on a workflow that is built for publishing consistency. This is
+            especially valuable for independent creators and small teams that need to maintain quality while posting on schedule.
+          </p>
+          <p>
+            If you want a balanced platform that combines speed, quality, and usability, TuneVid delivers exactly that. With
+            professional <strong>AI audio tools</strong>, creator-focused workflow design, and visual publishing support, TuneVid
+            acts as more than a utility. It becomes a practical production partner for creators building long-term content brands.
+          </p>
         </div>
-      </section>
-    </div>
+      }
+    />
   );
 }
