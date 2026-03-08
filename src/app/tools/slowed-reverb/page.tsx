@@ -7,7 +7,7 @@ import ToolBlog from "@/components/ToolBlog";
 import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { Loader2, Music, Sparkles, ArrowLeft, Download, AlertCircle, CheckCircle } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
-
+import ToolSeoDescription from "@/components/ToolSeoDescription";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -351,7 +351,18 @@ export default function SlowedReverbPage() {
       </UsageLimitGuard>
 
       <ToolBlog toolName="Slowed + Reverb Generator" tagline="Create dreamy lo-fi edits in seconds" description="The Slowed + Reverb Generator lets you slow down any track and add atmospheric reverb to create the iconic lo-fi aesthetic. Choose from professional presets or fine-tune your own settings for the perfect vibe." accentColor="purple" howToSteps={[{ step: 1, title: "Upload your audio", description: "Drag and drop an MP3, WAV, or FLAC file (up to 50 MB)." }, { step: 2, title: "Choose a reverb preset", description: "Select from Room, Hall, Stadium, Dreamy Lo-Fi, or Custom for full manual control." }, { step: 3, title: "Fine-tune settings", description: "Adjust the slowing rate (0.5x-1.0x) and reverb intensity (0-100%). Moving sliders auto-switches to Custom mode." }, { step: 4, title: "Generate & compare", description: "Hit Generate and compare the original vs the lo-fi version side by side." }]} proTips={["Hall preset (0.85x, 45% reverb) works great for most songs.", "For TikTok-style edits, try Dreamy Lo-Fi preset at 0.78x speed.", "Output is 320kbps MP3 for excellent quality."]} faq={[{ q: "Will the pitch change when I slow down?", a: "Yes, slowing the track naturally lowers the pitch, which is the signature lo-fi sound. This is by design." }, { q: "Can I preview before downloading?", a: "Absolutely! After processing, you'll see both the Original and Slowed+Reverb players side by side." }]} />
+      <ToolSeoDescription
+        title="Slowed + Reverb Production Notes"
+        description="Create lo-fi and atmospheric edits with controlled speed reduction and space-enhancing ambience."
+        articleTitle="Building the Slowed-Reverb Sound"
+        articleParagraphs={[
+          "Slowed + reverb edits combine tempo reduction with ambience to create a dreamy, emotional listening experience popular on short-form and streaming platforms.",
+          "The best results come from subtle speed changes and measured reverb depth. Too much processing can blur transients and reduce vocal intelligibility.",
+          "Creators should compare original and processed versions, then export at high quality for distribution. TuneVid streamlines this process with preset and custom controls."
+        ]}
+      />
     </div>
   );
 }
+
 

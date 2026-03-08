@@ -7,7 +7,7 @@ import ToolBlog from "@/components/ToolBlog";
 import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { Loader2, Speaker, Zap, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
-
+import ToolSeoDescription from "@/components/ToolSeoDescription";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -297,7 +297,18 @@ export default function BassBoosterPage() {
       </UsageLimitGuard>
 
       <ToolBlog toolName="Bass Booster" tagline="Deep bass, crisp treble, and powerful volume — all in one tool" description="The Bass Booster features a 3-band equalizer with presets for car mixes, deep bass, balanced enhancement, and treble boost. Fine-tune bass, treble, and volume independently for the perfect sound profile." accentColor="red" howToSteps={[{ step: 1, title: "Upload your audio", description: "Drop an MP3, WAV, or FLAC file (up to 50 MB)." }, { step: 2, title: "Choose a preset or customize", description: "Select Deep Bass, Balanced, Car Mode, or Treble Boost — or manually adjust all three bands." }, { step: 3, title: "Process & preview", description: "Hit Boost Audio and listen to the enhanced version." }, { step: 4, title: "Download", description: "Download the boosted track in 320kbps MP3 quality." }]} proTips={["Car Mode preset is optimized for car stereo systems with heavy sub-bass.", "Avoid pushing bass above 18dB on tracks with existing bass — it may cause clipping.", "For vocals, try Treble Boost preset to add clarity and presence."]} faq={[{ q: "Will bass boosting reduce audio quality?", a: "Our tool uses professional FFmpeg equalizer filters. At reasonable levels (6-12dB), quality remains excellent. Extreme boost may cause slight distortion." }, { q: "Can I boost bass and treble together?", a: "Yes! Use the manual sliders to adjust bass, treble, and volume independently for complete control." }]} />
+      <ToolSeoDescription
+        title="Bass Boosting Without Mud"
+        description="Enhance low-end energy while keeping vocals and midrange detail clear."
+        articleTitle="Smart Bass Enhancement for Modern Tracks"
+        articleParagraphs={[
+          "Bass boosting increases low-frequency presence, but excessive gain can quickly make mixes muddy. Effective enhancement balances sub-bass punch with midrange intelligibility.",
+          "A practical approach combines moderate bass gain, controlled treble adjustment, and level checks across headphones, phones, and speakers.",
+          "TuneVid helps creators test bass enhancement quickly so tracks feel fuller for reels, shorts, and music uploads without sacrificing overall clarity."
+        ]}
+      />
     </div>
   );
 }
+
 

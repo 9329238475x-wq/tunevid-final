@@ -2,7 +2,7 @@
 
 import { ArrowLeft, Scissors } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
-
+import ToolSeoDescription from "@/components/ToolSeoDescription";
 export default function AudioTrimmerPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-16 text-zinc-900 dark:text-zinc-100">
@@ -24,6 +24,18 @@ export default function AudioTrimmerPage() {
           Back to Tools
         </SafeLink>
       </section>
+      <ToolSeoDescription
+        title="Audio Trimming Workflow"
+        description="Precise trimming is essential for intros, reels, shorts, podcasts, and clean music excerpts."
+        articleTitle="Why Accurate Audio Trimming Matters"
+        articleParagraphs={[
+          "Audio trimming removes unwanted sections and helps creators focus attention on key moments. A clean start and clean end can significantly improve listener retention.",
+          "Professional trimming requires frame-accurate cuts, gentle fades at boundaries, and timing that matches the target platform's content format.",
+          "Even when a tool is temporarily unavailable, planning your trim points in advance improves editing speed and keeps your production pipeline efficient."
+        ]}
+      />
     </div>
   );
 }
+
+

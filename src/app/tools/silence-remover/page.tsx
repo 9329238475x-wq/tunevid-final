@@ -7,7 +7,7 @@ import ToolBlog from "@/components/ToolBlog";
 import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { Loader2, ScissorsLineDashed, Zap, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
-
+import ToolSeoDescription from "@/components/ToolSeoDescription";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -272,7 +272,18 @@ export default function SilenceRemoverPage() {
       )}
 
       <ToolBlog toolName="Smart Silence Remover" tagline="Auto-trim dead air from podcasts and recordings" description="The Silence Remover automatically detects and removes silent gaps in audio. Adjust sensitivity threshold, minimum silence duration, and cut padding for smooth transitions. See exactly how much time you saved after processing." accentColor="orange" howToSteps={[{ step: 1, title: "Upload your recording", description: "Drop a podcast, lecture, or voice recording (MP3/WAV/FLAC)." }, { step: 2, title: "Adjust sensitivity", description: "Set the silence threshold (-60dB to -20dB) and minimum duration to cut (0.1s-2.0s)." }, { step: 3, title: "Set cut padding", description: "Add 0-500ms of padding at cut points to prevent abrupt jumps between segments." }, { step: 4, title: "Process & review", description: "See the time saved and download the tightened audio." }]} proTips={["For podcasts, try -40dB threshold with 0.5s minimum duration for natural-sounding cuts.", "Use 50-100ms padding for smooth transitions that don't sound chopped.", "Lower threshold values (-50dB, -60dB) will catch more quiet sections including soft breaths."]} />
+      <ToolSeoDescription
+        title="Silence Removal for Faster Content"
+        description="Automatically remove dead air from spoken or music content to improve pacing and retention."
+        articleTitle="Auto-Trim Strategy for Podcasts and Voice Content"
+        articleParagraphs={[
+          "Silence removal increases content density by cutting long pauses, breathing gaps, and inactive sections. This is especially useful for podcasts, lectures, and tutorials.",
+          "Threshold and minimum duration settings determine sensitivity. Aggressive settings save more time but can remove natural pauses that improve listening comfort.",
+          "A balanced preset with slight cut padding usually gives the best result. TuneVid helps you tune these controls and measure how much duration you save."
+        ]}
+      />
     </div>
   );
 }
+
 

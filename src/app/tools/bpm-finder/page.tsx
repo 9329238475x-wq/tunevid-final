@@ -15,7 +15,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
-
+import ToolSeoDescription from "@/components/ToolSeoDescription";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -249,7 +249,18 @@ export default function BPMFinderPage() {
       )}
 
       <ToolBlog toolName="BPM & Key Finder" tagline="Instant tempo and musical key detection powered by AI" description="The BPM & Key Finder uses Librosa's advanced audio analysis to detect the tempo (BPM) and musical key of any track. Essential for DJs, producers, and music creators who need to match tempos for mixing or find the right key for remixes and covers." accentColor="green" howToSteps={[{ step: 1, title: "Upload your track", description: "Drop an MP3, WAV, or FLAC file (up to 50 MB)." }, { step: 2, title: "Click Analyze", description: "The AI engine will analyze the audio waveform to detect BPM and musical key." }, { step: 3, title: "View results", description: "Get the detected BPM, musical key, and confidence score in a Spotify-style result card." }]} proTips={["For most accurate BPM, use tracks with a clear beat. Ambient or experimental music may produce variable results.", "The confidence score tells you how reliable the detection is — above 80% is very accurate.", "BPM detection works best with songs that maintain a consistent tempo throughout."]} faq={[{ q: "How accurate is the BPM detection?", a: "Very accurate for most commercial music (pop, EDM, hip-hop). The algorithm analyzes onset patterns and beat tracking. Complex time signatures may produce results with lower confidence." }, { q: "What musical key formats are shown?", a: "The tool shows key in standard notation (e.g., C Major, A Minor) along with the Camelot wheel notation used by DJs." }]} />
+      <ToolSeoDescription
+        title="BPM Detection for Producers and DJs"
+        description="Find accurate tempo values for editing, remixing, transitions, and beat-synced content production."
+        articleTitle="How BPM Analysis Improves Music Workflow"
+        articleParagraphs={[
+          "BPM is the structural backbone of rhythmic editing. Accurate tempo detection helps align loops, time effects, and build smooth transitions between songs.",
+          "For remixing and mashups, knowing BPM early prevents timing drift and reduces manual correction work. It also improves compatibility with DAW grids and DJ software.",
+          "Reliable BPM tools analyze transient peaks and rhythmic patterns to estimate tempo quickly, saving creators significant prep time before production starts."
+        ]}
+      />
     </div>
   );
 }
+
 

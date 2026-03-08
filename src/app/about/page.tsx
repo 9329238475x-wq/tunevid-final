@@ -1,65 +1,61 @@
-import { Info } from "lucide-react";
-
 export const metadata = {
-    title: "About",
-    description: "TuneVid is a free AI-powered audio studio — create visualizers, remove vocals, boost bass, and publish directly to YouTube.",
+  title: "About TuneVid | AI Tools for Independent Creators",
+  description:
+    "Learn about TuneVid's mission to help independent creators produce better audio and video with practical AI tools.",
 };
 
 export default function AboutPage() {
-    return (
-        <div className="mx-auto max-w-3xl px-6 py-16 space-y-6">
-            <div className="flex items-center gap-2">
-                <Info className="w-4 h-4 text-zinc-500 dark:text-zinc-400" strokeWidth={1.5} />
-                <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">About</p>
-            </div>
-            <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-100">TuneVid</h1>
-
-            <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm legal-content dark:border-zinc-800 dark:bg-zinc-950">
-                <p>
-                    TuneVid is a free, open-source tool that helps music creators,
-                    podcasters, and content enthusiasts turn their audio into visually
-                    stunning videos — and publish them directly to YouTube with a single
-                    click.
-                </p>
-
-                <h2>Our Mission</h2>
-                <p>
-                    We believe every sound deserves a visual identity. Whether you&apos;re
-                    a bedroom producer, an independent artist, or a podcast host, TuneVid
-                    makes it effortless to create bass-reactive audio visualizer videos
-                    — no editing software required.
-                </p>
-
-                <h2>How It Works</h2>
-                <ul>
-                    <li>Upload your MP3 audio and a cover image (JPG / PNG).</li>
-                    <li>Optionally enable the AI Vocal Remover powered by Spleeter to isolate instrumentals.</li>
-                    <li>TuneVid generates a 720p visualizer video using FFmpeg with dynamic frequency bars and waveforms.</li>
-                    <li>The video is uploaded directly to your YouTube channel via the YouTube Data API v3.</li>
-                    <li>All temporary files are deleted from our server immediately after upload.</li>
-                </ul>
-
-                <h2>Your Privacy Matters</h2>
-                <p>
-                    We never store your files beyond the processing session. Your YouTube
-                    credentials are used only to publish one video at a time and are not
-                    saved. Read our full <a href="/privacy-policy">Privacy Policy</a> for details.
-                </p>
-
-                <h2>Built With</h2>
-                <ul>
-                    <li><strong>Frontend:</strong> Next.js, React, Tailwind CSS</li>
-                    <li><strong>Backend:</strong> Python, FastAPI, FFmpeg</li>
-                    <li><strong>AI:</strong> Spleeter (Deezer) for vocal separation</li>
-                    <li><strong>Integration:</strong> YouTube Data API v3 with OAuth 2.0</li>
-                </ul>
-
-                <h2>Contact</h2>
-                <p>
-                    Have questions, feedback, or feature requests? Reach out to us at
-                    <a href="mailto:9329238475x@gmail.com">9329238475x@gmail.com</a>.
-                </p>
-            </div>
+  return (
+    <div className="mx-auto max-w-5xl px-6 py-14 text-zinc-900 dark:text-zinc-100">
+      <section className="rounded-2xl border border-zinc-200 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/70 md:p-10">
+        <div className="max-w-3xl space-y-6">
+          <p className="text-xs font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">
+            About TuneVid
+          </p>
+          <h1 className="text-3xl font-bold md:text-4xl">Helping Independent Creators Ship Faster</h1>
+          <p className="text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+            TuneVid exists to reduce the technical friction between creative ideas and published content. We build
+            practical AI-powered audio and video tools for musicians, remix artists, podcasters, and YouTube creators
+            who need speed, reliability, and clean output without enterprise complexity.
+          </p>
+          <p className="text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+            Our mission is simple: make professional production workflows accessible to solo creators and small teams.
+            From vocal separation and audio cleanup to visualizer generation and publishing support, TuneVid is designed
+            as a focused toolkit for real creator pipelines.
+          </p>
         </div>
-    );
+      </section>
+
+      <section className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="rounded-xl border border-zinc-200 bg-white/70 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/40">
+          <h2 className="text-base font-semibold">Creator First</h2>
+          <p className="mt-2 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+            We prioritize clear UX, fast results, and export quality that creators can trust in production.
+          </p>
+        </div>
+        <div className="rounded-xl border border-zinc-200 bg-white/70 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/40">
+          <h2 className="text-base font-semibold">Practical AI</h2>
+          <p className="mt-2 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+            We use AI where it delivers real workflow value, not where it adds noise or uncertainty.
+          </p>
+        </div>
+        <div className="rounded-xl border border-zinc-200 bg-white/70 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/40">
+          <h2 className="text-base font-semibold">Trust and Clarity</h2>
+          <p className="mt-2 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+            We aim for transparent platform policies, straightforward usage rules, and reliable communication.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-6 rounded-2xl border border-zinc-200 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/70 md:p-8">
+        <h2 className="text-xl font-semibold">Who TuneVid Is For</h2>
+        <ul className="mt-4 space-y-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+          <li>Independent musicians creating release visuals and instrumentals for YouTube.</li>
+          <li>DJs and remix creators extracting stems for edits, mashups, and live sets.</li>
+          <li>Podcast and voice creators cleaning audio for clearer listening experiences.</li>
+          <li>Content teams producing short-form clips with consistent audio quality.</li>
+        </ul>
+      </section>
+    </div>
+  );
 }

@@ -7,7 +7,7 @@ import ToolBlog from "@/components/ToolBlog";
 import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { Loader2, Mic, Waves, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
-
+import ToolSeoDescription from "@/components/ToolSeoDescription";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -237,7 +237,18 @@ export default function NoiseReducerPage() {
       )}
 
       <ToolBlog toolName="AI Noise Reducer" tagline="Crystal-clear audio with AI-powered noise removal" description="The Noise Reducer uses advanced FFmpeg filters (afftdn and anlmdn) to remove hiss, hum, wind noise, and background interference from recordings. Compare before and after with the built-in dual player." accentColor="blue" howToSteps={[{ step: 1, title: "Upload your recording", description: "Drop an MP3, WAV, or FLAC file with unwanted background noise." }, { step: 2, title: "Choose reduction level", description: "Select Light (for subtle hiss), Medium (for general noise), or Heavy (for severe background noise)." }, { step: 3, title: "Process & compare", description: "Listen to the original and denoised versions side by side to verify the quality." }, { step: 4, title: "Download", description: "Download the clean audio in 320kbps MP3." }]} proTips={["Light mode preserves the most natural sound — best for studio recordings with minor noise.", "Heavy mode uses AI-like non-local means denoising for severely noisy recordings.", "For podcasts and voiceovers, Medium mode usually delivers the best balance.", "If the result sounds too processed, try a lighter setting — over-reduction can affect voice quality."]} />
+      <ToolSeoDescription
+        title="AI Noise Reduction for Cleaner Audio"
+        description="Remove hiss, hum, and environmental noise while preserving voice and musical detail."
+        articleTitle="Noise Reduction Techniques That Preserve Quality"
+        articleParagraphs={[
+          "Noise reduction separates unwanted background energy from useful signal. The challenge is removing noise without introducing metallic artifacts or dulling the source.",
+          "Effective denoising depends on choosing the right intensity. Light settings retain natural tone, while heavy settings can rescue difficult recordings with careful monitoring.",
+          "TuneVid's workflow supports quick before/after comparison so creators can optimize clarity for podcasts, vocals, and content audio before publishing."
+        ]}
+      />
     </div>
   );
 }
+
 
