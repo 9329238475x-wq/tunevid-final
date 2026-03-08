@@ -332,273 +332,282 @@ export default function Uploader() {
                 </p>
             </div>
 
-            {/* ═══════════════ STEP 1: FILE SELECTION ═══════════════ */}
             {!isProcessing && !youtubeUrl && (
-                <div className="rounded-xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 transition-all duration-200">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
-                        <CloudUpload className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
-                        Upload Files
-                        {bothUploaded && (
-                            <span className="ml-auto flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-                                <CheckCircle className="w-3.5 h-3.5" /> All files ready
-                            </span>
-                        )}
-                    </div>
+                <div className="flex flex-col gap-4 md:flex-row">
+                    {/* STEP 1: FILE SELECTION */}
+                    <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition-all duration-200 dark:border-zinc-800 dark:bg-zinc-950 md:w-5/12 md:p-5">
+                        <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100 md:mb-4">
+                            <CloudUpload className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
+                            Uploaded Files
+                            {bothUploaded && (
+                                <span className="ml-auto flex items-center gap-1 text-[10px] font-medium text-emerald-600 dark:text-emerald-400 sm:text-xs">
+                                    <CheckCircle className="h-3.5 w-3.5" /> Ready
+                                </span>
+                            )}
+                        </div>
 
-                    <div className="grid gap-4 md:grid-cols-2">
-                        {/* ── Audio Dropzone ── */}
-                        <div className="relative">
-                            <div
-                                {...audioDz.getRootProps()}
-                                className={`rounded-xl border-2 border-dashed p-5 text-center transition-all cursor-pointer
-                                    ${audioDz.isDragActive
-                                        ? "border-emerald-400 bg-emerald-50/50 dark:bg-emerald-900/10"
-                                        : audioUploaded
-                                            ? "border-emerald-300 bg-emerald-50/30 dark:border-emerald-800/50 dark:bg-emerald-900/5"
-                                            : "border-zinc-200 bg-zinc-50/50 hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/30 dark:hover:border-zinc-700"
-                                    }`}
-                            >
-                                <input {...audioDz.getInputProps()} />
+                        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                            {/* Audio Dropzone */}
+                            <div className="relative">
+                                <div
+                                    {...audioDz.getRootProps()}
+                                    className={`min-h-[120px] cursor-pointer rounded-xl border-2 border-dashed p-3 transition-all sm:min-h-[132px]
+                                        ${audioDz.isDragActive
+                                            ? "border-emerald-400 bg-emerald-50/50 dark:bg-emerald-900/10"
+                                            : audioUploaded
+                                                ? "border-emerald-300 bg-emerald-50/30 dark:border-emerald-800/50 dark:bg-emerald-900/5"
+                                                : "border-zinc-200 bg-zinc-50/50 hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/30 dark:hover:border-zinc-700"
+                                        }`}
+                                >
+                                    <input {...audioDz.getInputProps()} />
 
-                                {audioFile ? (
-                                    <div className="space-y-2">
-                                        <div className="flex items-center justify-center gap-2">
-                                            <FileAudio className="w-5 h-5 text-emerald-500" strokeWidth={1.5} />
-                                            {audioUploaded && <CheckCircle className="w-4 h-4 text-emerald-500" />}
+                                    {audioFile ? (
+                                        <div className="flex h-full flex-col justify-between gap-2">
+                                            <div className="flex items-start gap-2">
+                                                <div className="mt-0.5 rounded-md bg-emerald-50 p-1.5 dark:bg-emerald-900/20">
+                                                    <FileAudio className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
+                                                </div>
+                                                <div className="min-w-0 flex-1">
+                                                    <p title={audioFile.name} className="max-w-full truncate text-xs font-medium text-zinc-900 dark:text-zinc-100 sm:text-sm">
+                                                        {audioFile.name}
+                                                    </p>
+                                                    <p className="mt-0.5 text-[10px] text-zinc-400 sm:text-xs">{fmt(audioFile.size)}</p>
+                                                </div>
+                                            </div>
+
+                                            {audioUploading && (
+                                                <div>
+                                                    <div className="relative h-1.5 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
+                                                        <div
+                                                            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-300 ease-out"
+                                                            style={{ width: `${audioUploadProgress}%` }}
+                                                        />
+                                                    </div>
+                                                    <p className="mt-1 text-[10px] text-zinc-400">{audioUploadProgress}% uploaded</p>
+                                                </div>
+                                            )}
+                                            {audioUploaded && (
+                                                <p className="text-[10px] font-medium text-emerald-500">Uploaded</p>
+                                            )}
                                         </div>
-                                        <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate px-2">{audioFile.name}</p>
-                                        <p className="text-xs text-zinc-400">{fmt(audioFile.size)}</p>
-
-                                        {/* Upload progress */}
-                                        {audioUploading && (
-                                            <div className="mt-2">
-                                                <div className="relative h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
-                                                    <div
-                                                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full transition-all duration-300 ease-out"
-                                                        style={{ width: `${audioUploadProgress}%` }}
-                                                    />
-                                                </div>
-                                                <p className="text-[10px] text-zinc-400 mt-1">{audioUploadProgress}% uploaded</p>
-                                            </div>
-                                        )}
-                                        {audioUploaded && (
-                                            <p className="text-[10px] text-emerald-500 font-medium">✓ Uploaded to server</p>
-                                        )}
-                                    </div>
-                                ) : (
-                                    <div className="space-y-2 py-2">
-                                        <Music className="w-8 h-8 text-zinc-300 dark:text-zinc-600 mx-auto" strokeWidth={1.2} />
-                                        <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Drop audio file</p>
-                                        <p className="text-[11px] text-zinc-400">MP3, WAV, FLAC · max 50MB</p>
-                                    </div>
+                                    ) : (
+                                        <div className="flex h-full flex-col items-center justify-center gap-1.5 text-center">
+                                            <Music className="h-6 w-6 text-zinc-300 dark:text-zinc-600 sm:h-7 sm:w-7" strokeWidth={1.2} />
+                                            <p className="text-xs font-medium text-zinc-700 dark:text-zinc-300 sm:text-sm">Add audio</p>
+                                            <p className="text-[10px] text-zinc-400 sm:text-[11px]">MP3/WAV/FLAC</p>
+                                        </div>
+                                    )}
+                                </div>
+                                {audioFile && !audioUploading && (
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); setAudioFile(null); setAudioFileId(null); setAudioUploaded(false); setAudioUploadProgress(0); }}
+                                        className="absolute right-2 top-2 rounded-full bg-zinc-100 p-1 transition hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+                                    >
+                                        <X className="h-3 w-3 text-zinc-500" />
+                                    </button>
                                 )}
                             </div>
-                            {audioFile && !audioUploading && (
-                                <button
-                                    onClick={(e) => { e.stopPropagation(); setAudioFile(null); setAudioFileId(null); setAudioUploaded(false); setAudioUploadProgress(0); }}
-                                    className="absolute top-2 right-2 p-1 rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 transition"
+
+                            {/* Image Dropzone */}
+                            <div className="relative">
+                                <div
+                                    {...imageDz.getRootProps()}
+                                    className={`min-h-[120px] cursor-pointer rounded-xl border-2 border-dashed p-3 transition-all sm:min-h-[132px]
+                                        ${imageDz.isDragActive
+                                            ? "border-emerald-400 bg-emerald-50/50 dark:bg-emerald-900/10"
+                                            : imageUploaded
+                                                ? "border-emerald-300 bg-emerald-50/30 dark:border-emerald-800/50 dark:bg-emerald-900/5"
+                                                : "border-zinc-200 bg-zinc-50/50 hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/30 dark:hover:border-zinc-700"
+                                        }`}
                                 >
-                                    <X className="w-3 h-3 text-zinc-500" />
-                                </button>
-                            )}
+                                    <input {...imageDz.getInputProps()} />
+
+                                    {imageFile && imagePreviewUrl ? (
+                                        <div className="flex h-full flex-col justify-between gap-2">
+                                            <div className="flex items-start gap-2">
+                                                <img
+                                                    src={imagePreviewUrl}
+                                                    alt="cover"
+                                                    className="h-16 w-16 rounded-lg object-cover shadow-sm sm:h-20 sm:w-20"
+                                                />
+                                                <div className="min-w-0 flex-1">
+                                                    <p title={imageFile.name} className="max-w-full truncate text-xs font-medium text-zinc-900 dark:text-zinc-100 sm:text-sm">
+                                                        {imageFile.name}
+                                                    </p>
+                                                    <p className="mt-0.5 text-[10px] text-zinc-400 sm:text-xs">{fmt(imageFile.size)}</p>
+                                                </div>
+                                            </div>
+
+                                            {imageUploading && (
+                                                <div>
+                                                    <div className="relative h-1.5 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
+                                                        <div
+                                                            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-300 ease-out"
+                                                            style={{ width: `${imageUploadProgress}%` }}
+                                                        />
+                                                    </div>
+                                                    <p className="mt-1 text-[10px] text-zinc-400">{imageUploadProgress}% uploaded</p>
+                                                </div>
+                                            )}
+                                            {imageUploaded && (
+                                                <p className="text-[10px] font-medium text-emerald-500">Uploaded</p>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <div className="flex h-full flex-col items-center justify-center gap-1.5 text-center">
+                                            <ImageIcon className="h-6 w-6 text-zinc-300 dark:text-zinc-600 sm:h-7 sm:w-7" strokeWidth={1.2} />
+                                            <p className="text-xs font-medium text-zinc-700 dark:text-zinc-300 sm:text-sm">Add artwork</p>
+                                            <p className="text-[10px] text-zinc-400 sm:text-[11px]">JPG/PNG/WebP</p>
+                                        </div>
+                                    )}
+                                </div>
+                                {imageFile && !imageUploading && (
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); setImageFile(null); setImageFileId(null); setImageUploaded(false); setImageUploadProgress(0); }}
+                                        className="absolute right-2 top-2 rounded-full bg-zinc-100 p-1 transition hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+                                    >
+                                        <X className="h-3 w-3 text-zinc-500" />
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* STEP 2: VIDEO DETAILS */}
+                    <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition-all duration-200 dark:border-zinc-800 dark:bg-zinc-950 md:w-7/12 md:p-5">
+                        <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                            <AlignLeft className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
+                            Video Details
                         </div>
 
-                        {/* ── Image Dropzone ── */}
-                        <div className="relative">
-                            <div
-                                {...imageDz.getRootProps()}
-                                className={`rounded-xl border-2 border-dashed p-5 text-center transition-all cursor-pointer
-                                    ${imageDz.isDragActive
-                                        ? "border-emerald-400 bg-emerald-50/50 dark:bg-emerald-900/10"
-                                        : imageUploaded
-                                            ? "border-emerald-300 bg-emerald-50/30 dark:border-emerald-800/50 dark:bg-emerald-900/5"
-                                            : "border-zinc-200 bg-zinc-50/50 hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/30 dark:hover:border-zinc-700"
-                                    }`}
+                        {!session ? (
+                            <button
+                                onClick={() => signIn("google")}
+                                className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800 transition dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
                             >
-                                <input {...imageDz.getInputProps()} />
+                                <Youtube className="h-4 w-4" strokeWidth={1.5} />
+                                Sign in with YouTube
+                            </button>
+                        ) : (
+                            <div className="grid gap-4 md:grid-cols-2">
+                                {/* Title */}
+                                <div className="space-y-1">
+                                    <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                                        <Type className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
+                                        Title
+                                    </label>
+                                    <input
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                        className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
+                                        placeholder="Track name"
+                                    />
+                                </div>
 
-                                {imageFile && imagePreviewUrl ? (
-                                    <div className="space-y-2">
-                                        <img
-                                            src={imagePreviewUrl}
-                                            alt="cover"
-                                            className="w-16 h-16 mx-auto rounded-lg object-cover shadow-sm"
-                                        />
-                                        <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate px-2">{imageFile.name}</p>
-                                        <p className="text-xs text-zinc-400">{fmt(imageFile.size)}</p>
-
-                                        {imageUploading && (
-                                            <div className="mt-2">
-                                                <div className="relative h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
-                                                    <div
-                                                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full transition-all duration-300 ease-out"
-                                                        style={{ width: `${imageUploadProgress}%` }}
-                                                    />
-                                                </div>
-                                                <p className="text-[10px] text-zinc-400 mt-1">{imageUploadProgress}% uploaded</p>
-                                            </div>
-                                        )}
-                                        {imageUploaded && (
-                                            <p className="text-[10px] text-emerald-500 font-medium">✓ Uploaded to server</p>
-                                        )}
+                                {/* Visibility */}
+                                <div className="space-y-1">
+                                    <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                                        <Globe className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
+                                        Visibility
+                                    </label>
+                                    <select
+                                        value={privacyStatus}
+                                        onChange={(e) => setPrivacyStatus(e.target.value)}
+                                        className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
+                                    >
+                                        <option value="public">?? Public</option>
+                                        <option value="unlisted">?? Unlisted</option>
+                                        <option value="private">?? Private</option>
+                                    </select>
+                                    <div className="flex items-center gap-1.5 text-[11px] text-zinc-400 dark:text-zinc-500 pl-0.5">
+                                        {privacyStatus === "public" && <><Globe className="w-3 h-3" /><span>Visible to everyone</span></>}
+                                        {privacyStatus === "unlisted" && <><EyeOff className="w-3 h-3" /><span>Only people with the link</span></>}
+                                        {privacyStatus === "private" && <><Lock className="w-3 h-3" /><span>Only you can view</span></>}
                                     </div>
-                                ) : (
-                                    <div className="space-y-2 py-2">
-                                        <ImageIcon className="w-8 h-8 text-zinc-300 dark:text-zinc-600 mx-auto" strokeWidth={1.2} />
-                                        <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Drop artwork</p>
-                                        <p className="text-[11px] text-zinc-400">JPG, PNG, WebP · max 50MB</p>
-                                    </div>
-                                )}
-                            </div>
-                            {imageFile && !imageUploading && (
-                                <button
-                                    onClick={(e) => { e.stopPropagation(); setImageFile(null); setImageFileId(null); setImageUploaded(false); setImageUploadProgress(0); }}
-                                    className="absolute top-2 right-2 p-1 rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 transition"
-                                >
-                                    <X className="w-3 h-3 text-zinc-500" />
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            )}
+                                </div>
 
-            {/* ═══════════════ STEP 2: VIDEO DETAILS ═══════════════ */}
-            {!isProcessing && !youtubeUrl && (
-                <div className="rounded-xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 transition-all duration-200">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
-                        <AlignLeft className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
-                        Video Details
-                    </div>
+                                {/* Description */}
+                                <div className="md:col-span-2 space-y-1">
+                                    <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                                        <AlignLeft className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
+                                        Description
+                                    </label>
+                                    <textarea
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
+                                        rows={3}
+                                        className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800 resize-none"
+                                        placeholder="Add details about your track..."
+                                    />
+                                </div>
 
-                    {!session ? (
-                        <button
-                            onClick={() => signIn("google")}
-                            className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800 transition dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
-                        >
-                            <Youtube className="w-4 h-4" strokeWidth={1.5} />
-                            Sign in with YouTube
-                        </button>
-                    ) : (
-                        <div className="grid gap-4 md:grid-cols-2">
-                            {/* Title */}
-                            <div className="space-y-1">
-                                <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                                    <Type className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
-                                    Title
-                                </label>
-                                <input
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
-                                    placeholder="Track name"
-                                />
-                            </div>
+                                {/* Tags */}
+                                <div className="md:col-span-2 space-y-1">
+                                    <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                                        <TagsIcon className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
+                                        Tags
+                                    </label>
+                                    <input
+                                        value={tags}
+                                        onChange={(e) => setTags(e.target.value)}
+                                        className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
+                                        placeholder="music, lofi, chill, remix"
+                                    />
+                                    <p className="text-[10px] text-zinc-400 dark:text-zinc-500 pl-0.5">Separate tags with commas</p>
+                                </div>
 
-                            {/* Visibility */}
-                            <div className="space-y-1">
-                                <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                                    <Globe className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
-                                    Visibility
-                                </label>
-                                <select
-                                    value={privacyStatus}
-                                    onChange={(e) => setPrivacyStatus(e.target.value)}
-                                    className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
-                                >
-                                    <option value="public">🌐 Public</option>
-                                    <option value="unlisted">🔗 Unlisted</option>
-                                    <option value="private">🔒 Private</option>
-                                </select>
-                                <div className="flex items-center gap-1.5 text-[11px] text-zinc-400 dark:text-zinc-500 pl-0.5">
-                                    {privacyStatus === "public" && <><Globe className="w-3 h-3" /><span>Visible to everyone</span></>}
-                                    {privacyStatus === "unlisted" && <><EyeOff className="w-3 h-3" /><span>Only people with the link</span></>}
-                                    {privacyStatus === "private" && <><Lock className="w-3 h-3" /><span>Only you can view</span></>}
+                                {/* Category */}
+                                <div className="space-y-1">
+                                    <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                                        <Sparkles className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
+                                        Category
+                                    </label>
+                                    <select
+                                        value={categoryId}
+                                        onChange={(e) => setCategoryId(e.target.value)}
+                                        className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
+                                    >
+                                        <option value="10">?? Music</option>
+                                        <option value="24">?? Entertainment</option>
+                                        <option value="20">?? Gaming</option>
+                                        <option value="27">?? Education</option>
+                                        <option value="22">?? People & Blogs</option>
+                                        <option value="23">?? Comedy</option>
+                                        <option value="25">?? News & Politics</option>
+                                        <option value="26">?? Howto & Style</option>
+                                        <option value="28">?? Science & Technology</option>
+                                        <option value="1">?? Film & Animation</option>
+                                        <option value="2">?? Autos & Vehicles</option>
+                                        <option value="15">?? Pets & Animals</option>
+                                        <option value="17">? Sports</option>
+                                        <option value="19">?? Travel & Events</option>
+                                        <option value="29">??? Nonprofits & Activism</option>
+                                    </select>
+                                </div>
+
+                                {/* Audience (COPPA) */}
+                                <div className="space-y-1">
+                                    <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                                        <Shield className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
+                                        Made for Kids? (COPPA)
+                                    </label>
+                                    <select
+                                        value={madeForKids}
+                                        onChange={(e) => setMadeForKids(e.target.value)}
+                                        className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
+                                    >
+                                        <option value="no">No, it&apos;s not made for kids</option>
+                                        <option value="yes">Yes, it&apos;s made for kids</option>
+                                    </select>
+                                    <p className="text-[10px] text-zinc-400 dark:text-zinc-500 pl-0.5 leading-relaxed">
+                                        As per YouTube/COPPA compliance, select if content is directed at children under 13
+                                    </p>
                                 </div>
                             </div>
-
-                            {/* Description */}
-                            <div className="md:col-span-2 space-y-1">
-                                <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                                    <AlignLeft className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
-                                    Description
-                                </label>
-                                <textarea
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    rows={3}
-                                    className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800 resize-none"
-                                    placeholder="Add details about your track..."
-                                />
-                            </div>
-
-                            {/* Tags */}
-                            <div className="md:col-span-2 space-y-1">
-                                <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                                    <TagsIcon className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
-                                    Tags
-                                </label>
-                                <input
-                                    value={tags}
-                                    onChange={(e) => setTags(e.target.value)}
-                                    className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
-                                    placeholder="music, lofi, chill, remix"
-                                />
-                                <p className="text-[10px] text-zinc-400 dark:text-zinc-500 pl-0.5">Separate tags with commas</p>
-                            </div>
-
-                            {/* Category */}
-                            <div className="space-y-1">
-                                <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                                    <Sparkles className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
-                                    Category
-                                </label>
-                                <select
-                                    value={categoryId}
-                                    onChange={(e) => setCategoryId(e.target.value)}
-                                    className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
-                                >
-                                    <option value="10">🎵 Music</option>
-                                    <option value="24">🎭 Entertainment</option>
-                                    <option value="20">🎮 Gaming</option>
-                                    <option value="27">📚 Education</option>
-                                    <option value="22">📝 People & Blogs</option>
-                                    <option value="23">😂 Comedy</option>
-                                    <option value="25">📰 News & Politics</option>
-                                    <option value="26">🎨 Howto & Style</option>
-                                    <option value="28">🔬 Science & Technology</option>
-                                    <option value="1">🎬 Film & Animation</option>
-                                    <option value="2">🚗 Autos & Vehicles</option>
-                                    <option value="15">🐾 Pets & Animals</option>
-                                    <option value="17">⚽ Sports</option>
-                                    <option value="19">✈️ Travel & Events</option>
-                                    <option value="29">🏛️ Nonprofits & Activism</option>
-                                </select>
-                            </div>
-
-                            {/* Audience (COPPA) */}
-                            <div className="space-y-1">
-                                <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                                    <Shield className="w-3.5 h-3.5 text-emerald-500" strokeWidth={1.5} />
-                                    Made for Kids? (COPPA)
-                                </label>
-                                <select
-                                    value={madeForKids}
-                                    onChange={(e) => setMadeForKids(e.target.value)}
-                                    className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
-                                >
-                                    <option value="no">No, it&apos;s not made for kids</option>
-                                    <option value="yes">Yes, it&apos;s made for kids</option>
-                                </select>
-                                <p className="text-[10px] text-zinc-400 dark:text-zinc-500 pl-0.5 leading-relaxed">
-                                    As per YouTube/COPPA compliance, select if content is directed at children under 13
-                                </p>
-                            </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             )}
-
             {/* ═══════════════ PROCESSING PROGRESS ═══════════════ */}
             {isProcessing && (
                 <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 transition-all duration-200">
@@ -707,9 +716,9 @@ export default function Uploader() {
 
             {/* ═══════════════ ERROR ═══════════════ */}
             {error && (
-                <div className="rounded-xl border border-red-200 bg-red-50 p-4 flex items-start gap-3 dark:border-red-800/30 dark:bg-red-900/10">
+                <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-2.5 sm:gap-3 sm:p-4 dark:border-red-800/30 dark:bg-red-900/10">
                     <span className="text-red-500 mt-0.5 shrink-0">⚠️</span>
-                    <p className="text-sm text-red-600 dark:text-red-400 flex-1">{error}</p>
+                    <p className="flex-1 text-xs text-red-600 dark:text-red-400 sm:text-sm">{error}</p>
                     <button onClick={() => setError(null)} className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 shrink-0">
                         <X className="w-4 h-4" />
                     </button>
