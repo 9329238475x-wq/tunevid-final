@@ -124,29 +124,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                {/* Plan upgrade CTA — only for free plan */}
-                {planType === "free" && (
-                    <div className="mt-5 rounded-xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-teal-50 p-4 dark:border-emerald-800/30 dark:from-emerald-950/20 dark:to-teal-950/20">
-                        <div className="flex items-center justify-between gap-4 flex-wrap">
-                            <div>
-                                <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">
-                                    Upgrade to Pro
-                                </p>
-                                <p className="text-xs text-emerald-600/80 dark:text-emerald-400/60 mt-0.5">
-                                    Unlimited tool uses, 4K quality, batch uploads, and more.
-                                </p>
-                            </div>
-                            <a
-                                href="/pricing"
-                                className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-500"
-                            >
-                                <Crown className="h-3.5 w-3.5" />
-                                View Plans
-                                <ChevronRight className="h-3 w-3" />
-                            </a>
-                        </div>
-                    </div>
-                )}
+
             </section>
 
             {/* API Key Section */}
@@ -158,93 +136,71 @@ export default function ProfilePage() {
                     <div>
                         <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">API Access</h3>
                         <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                            {planType === "max"
-                                ? "Generate an API key to access TuneVid tools programmatically."
-                                : "API access is available on the Max / Studio plan."}
+                            Generate an API key to access TuneVid tools programmatically.
                         </p>
                     </div>
                 </div>
 
-                {planType === "max" ? (
-                    <>
-                        {apiKey ? (
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
-                                    <code className="flex-1 text-xs font-mono text-zinc-700 dark:text-zinc-300 truncate">
-                                        {showApiKey ? apiKey : maskApiKey(apiKey)}
-                                    </code>
-                                    <button
-                                        onClick={() => setShowApiKey(!showApiKey)}
-                                        className="p-1.5 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-800 transition"
-                                        title={showApiKey ? "Hide key" : "Show key"}
-                                    >
-                                        {showApiKey ? (
-                                            <EyeOff className="h-4 w-4 text-zinc-500" />
-                                        ) : (
-                                            <Eye className="h-4 w-4 text-zinc-500" />
-                                        )}
-                                    </button>
-                                    <button
-                                        onClick={handleCopyApiKey}
-                                        className="p-1.5 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-800 transition"
-                                        title="Copy to clipboard"
-                                    >
-                                        {copied ? (
-                                            <Check className="h-4 w-4 text-emerald-500" />
-                                        ) : (
-                                            <Copy className="h-4 w-4 text-zinc-500" />
-                                        )}
-                                    </button>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <button
-                                        onClick={handleGenerateApiKey}
-                                        className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-semibold text-zinc-700 hover:bg-zinc-50 transition dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300"
-                                    >
-                                        <RefreshCw className="h-3.5 w-3.5" />
-                                        Regenerate Key
-                                    </button>
-                                    <p className="text-[10px] text-zinc-400 dark:text-zinc-500">
-                                        Warning: This will invalidate your current key.
-                                    </p>
-                                </div>
-                            </div>
-                        ) : (
+                {apiKey ? (
+                    <div className="space-y-3">
+                        <div className="flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
+                            <code className="flex-1 text-xs font-mono text-zinc-700 dark:text-zinc-300 truncate">
+                                {showApiKey ? apiKey : maskApiKey(apiKey)}
+                            </code>
                             <button
-                                onClick={handleGenerateApiKey}
-                                disabled={generating}
-                                className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                                onClick={() => setShowApiKey(!showApiKey)}
+                                className="p-1.5 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-800 transition"
+                                title={showApiKey ? "Hide key" : "Show key"}
                             >
-                                {generating ? (
-                                    <>
-                                        <Loader2 className="h-4 w-4 animate-spin" />
-                                        Generating...
-                                    </>
+                                {showApiKey ? (
+                                    <EyeOff className="h-4 w-4 text-zinc-500" />
                                 ) : (
-                                    <>
-                                        <Key className="h-4 w-4" />
-                                        Generate API Key
-                                    </>
+                                    <Eye className="h-4 w-4 text-zinc-500" />
                                 )}
                             </button>
-                        )}
-                    </>
-                ) : (
-                    <div className="rounded-xl border border-dashed border-zinc-300 bg-zinc-50 p-5 text-center dark:border-zinc-700 dark:bg-zinc-900/50">
-                        <Key className="h-8 w-8 text-zinc-300 dark:text-zinc-600 mx-auto mb-2" />
-                        <p className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">
-                            API Access Locked
-                        </p>
-                        <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-1">
-                            Upgrade to the Max / Studio plan to generate API keys.
-                        </p>
-                        <a
-                            href="/pricing"
-                            className="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
-                        >
-                            Upgrade now <ChevronRight className="h-3 w-3" />
-                        </a>
+                            <button
+                                onClick={handleCopyApiKey}
+                                className="p-1.5 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-800 transition"
+                                title="Copy to clipboard"
+                            >
+                                {copied ? (
+                                    <Check className="h-4 w-4 text-emerald-500" />
+                                ) : (
+                                    <Copy className="h-4 w-4 text-zinc-500" />
+                                )}
+                            </button>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={handleGenerateApiKey}
+                                className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-semibold text-zinc-700 hover:bg-zinc-50 transition dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300"
+                            >
+                                <RefreshCw className="h-3.5 w-3.5" />
+                                Regenerate Key
+                            </button>
+                            <p className="text-[10px] text-zinc-400 dark:text-zinc-500">
+                                Warning: This will invalidate your current key.
+                            </p>
+                        </div>
                     </div>
+                ) : (
+                    <button
+                        onClick={handleGenerateApiKey}
+                        disabled={generating}
+                        className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {generating ? (
+                            <>
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                Generating...
+                            </>
+                        ) : (
+                            <>
+                                <Key className="h-4 w-4" />
+                                Generate API Key
+                            </>
+                        )}
+                    </button>
                 )}
             </section>
 
@@ -255,7 +211,6 @@ export default function ProfilePage() {
                 </div>
                 {[
                     { icon: Settings, label: "Dashboard", desc: "View your activity and usage stats", href: "/dashboard" },
-                    { icon: Crown, label: "Plans & Pricing", desc: "Compare plans and upgrade", href: "/pricing" },
                     { icon: Shield, label: "Privacy Policy", desc: "How we handle your data", href: "/privacy-policy" },
                     { icon: HelpCircle, label: "Terms of Service", desc: "Our terms and conditions", href: "/terms" },
                 ].map((item) => (

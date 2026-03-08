@@ -13,16 +13,12 @@ import {
   LayoutDashboard,
   User,
   ChevronDown,
-  Settings,
-  Crown,
-  Key,
 } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 const LINKS = [
   { name: "Home", href: "/" },
   { name: "Tools", href: "/tools" },
-  { name: "Pricing", href: "/pricing" },
   { name: "About", href: "/about" },
 ];
 
@@ -127,20 +123,7 @@ export default function Navbar() {
                   <LayoutDashboard className="h-4 w-4 text-zinc-400" />
                   Dashboard
                 </Link>
-                <Link
-                  href="/profile#api"
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-700 hover:bg-zinc-50 transition dark:text-zinc-300 dark:hover:bg-zinc-900/50"
-                >
-                  <Key className="h-4 w-4 text-zinc-400" />
-                  API Keys
-                </Link>
-                <Link
-                  href="/pricing"
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-700 hover:bg-zinc-50 transition dark:text-zinc-300 dark:hover:bg-zinc-900/50"
-                >
-                  <Crown className="h-4 w-4 text-zinc-400" />
-                  Upgrade Plan
-                </Link>
+
               </div>
 
               {/* Sign Out */}

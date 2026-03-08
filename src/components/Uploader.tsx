@@ -118,7 +118,7 @@ export default function Uploader() {
     /* ── Publish (no file upload, uses pre-uploaded file IDs) ── */
     const handlePublish = useCallback(async () => {
         if (!audioFileId || !imageFileId) return;
-        if (!(session as any)?.accessToken) {
+        if (!(session as any)?.googleAccessToken) {
             setError("Please login with YouTube first.");
             return;
         }
@@ -138,7 +138,7 @@ export default function Uploader() {
         form.append("made_for_kids", madeForKids);
         form.append("tags", tags);
         form.append("category_id", categoryId);
-        form.append("youtube_access_token", (session as any).accessToken ?? "");
+        form.append("youtube_access_token", (session as any).googleAccessToken ?? "");
         form.append("youtube_refresh_token", (session as any).refreshToken ?? "");
 
         try {
@@ -286,7 +286,7 @@ export default function Uploader() {
     };
 
     const bothUploaded = audioUploaded && imageUploaded;
-    const isReady = bothUploaded && !!(session as any)?.accessToken;
+    const isReady = bothUploaded && !!(session as any)?.googleAccessToken;
 
     /* ── Circular progress ring helper ── */
     const CircleProgress = ({ pct, size = 44, stroke = 3.5 }: { pct: number; size?: number; stroke?: number }) => {

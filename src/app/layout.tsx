@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "../styles/globals.css";
 import AuthProvider from "../components/AuthProvider";
 import Footer from "../components/Footer";
@@ -63,6 +62,11 @@ export default function RootLayout({
         <meta
           name="google-site-verification"
           content="lCjQq4O_dnL-kifeDzBLCmJuCg8s99TbZNT9PAtvjdI"
+        />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2785656285369882"
+          crossOrigin="anonymous"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

@@ -84,19 +84,19 @@ function buildFallbackDashboard(session: any): DashboardData {
             referral_code: referralCode,
         },
         plan_limits: {
-            youtube_uploads_monthly: 5,
-            tool_uses_24h: 3,
-            max_file_size_mb: 50,
+            youtube_uploads_monthly: -1,
+            tool_uses_24h: -1,
+            max_file_size_mb: 500,
             quality: "1080p",
-            batch_upload: false,
-            api_access: false,
+            batch_upload: true,
+            api_access: true,
             priority_queue: false,
         },
         tool_usage: [],
         youtube_uploads: {
             used: 0,
-            max: 5,
-            remaining: 5,
+            max: -1,
+            remaining: -1,
             period_start: new Date().toISOString(),
         },
         referrals: {
@@ -194,7 +194,7 @@ function DashboardContent() {
                     hasWarmData = true;
                 }
             }
-        } catch {}
+        } catch { }
 
         // If cache miss, paint lightweight fallback immediately, then revalidate.
         if (!hasWarmData) {
@@ -205,20 +205,20 @@ function DashboardContent() {
         try {
             const controller = new AbortController();
             const timeout = setTimeout(() => controller.abort(), 3500); // fail fast, keep UI snappy
-            
+
             const res = await fetch(`${API_BASE}/api/user/dashboard`, {
                 headers: { Authorization: `Bearer ${session.accessToken}` },
                 signal: controller.signal,
             });
             clearTimeout(timeout);
-            
+
             if (res.ok) {
                 const dashData = await res.json();
                 setData(dashData);
                 // Cache for faster subsequent loads
                 try {
                     sessionStorage.setItem("tunevid_dashboard", JSON.stringify({ data: dashData, _ts: Date.now() }));
-                } catch {}
+                } catch { }
             }
         } catch {
             setData((prev) => prev ?? buildFallbackDashboard(session));
@@ -258,16 +258,7 @@ function DashboardContent() {
 
     return (
         <div className="mx-auto max-w-6xl px-4 py-8 sm:py-12 space-y-8">
-            {/* Upgrade Success Banner */}
-            {upgraded && (
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 p-4 text-center text-white font-semibold shadow-lg"
-                >
-                    🎉 You&apos;re now on the {data.user.plan_type.toUpperCase()} plan! Enjoy unlimited power.
-                </motion.div>
-            )}
+
 
             {/* Header */}
             <motion.div
@@ -301,15 +292,7 @@ function DashboardContent() {
                     </div>
                 </div>
 
-                {data.user.plan_type === "free" && (
-                    <Link
-                        href="/pricing"
-                        className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:opacity-90 transition btn-depth"
-                    >
-                        <Zap className="h-4 w-4" />
-                        Upgrade Plan
-                    </Link>
-                )}
+
             </motion.div>
 
             {/* Stats Grid */}
@@ -595,15 +578,15 @@ function DashboardContent() {
                 </Link>
 
                 <Link
-                    href="/pricing"
+                    href="/profile"
                     className="flex items-center gap-3 rounded-xl border border-zinc-200 bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 dark:border-zinc-800 dark:bg-zinc-950 card-elevated"
                 >
                     <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-900/20">
-                        <Crown className="h-5 w-5 text-amber-500" />
+                        <Shield className="h-5 w-5 text-amber-500" />
                     </div>
                     <div>
-                        <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Manage Plan</p>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400">View pricing & upgrade</p>
+                        <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">My Profile</p>
+                        <p className="text-xs text-zinc-500 dark:text-zinc-400">View account info</p>
                     </div>
                 </Link>
             </motion.div>

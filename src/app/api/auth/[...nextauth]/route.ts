@@ -3,6 +3,9 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { getDb } from "@/lib/db";
+import jwt from "jsonwebtoken";
+
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET || "tunevid-super-secret-key-change-in-production";
 
 const handler = NextAuth({
   providers: [
@@ -62,8 +65,9 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, account, profile, user }) {
       if (account?.provider === "google") {
-        token.accessToken = account.access_token;
-        token.refreshToken = account.refresh_token;
+        // Store Google tokens for YouTube API
+        token.googleAccessToken = account.access_token;
+        token.googleRefreshToken = account.refresh_token;
         token.expiresAt = account.expires_at;
         token.picture = (profile as any)?.picture ?? (profile as any)?.image;
       }
@@ -71,31 +75,32 @@ const handler = NextAuth({
         token.userId = (user as any).id;
       }
 
-      // Sync user with backend on first login
-      if (account?.provider === "google" && token.email) {
-        try {
-          const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
-          await fetch(`${API_BASE}/api/user/me`, {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${account.access_token}`,
-              "Content-Type": "application/json",
-            },
-          }).catch(() => { });
-        } catch {
-          // Backend sync is best-effort
-        }
+      // Create a backend-compatible JWT signed with NEXTAUTH_SECRET
+      // This token has the user info the backend needs
+      if (token.email) {
+        token.backendToken = jwt.sign(
+          {
+            email: token.email,
+            name: token.name,
+            picture: token.picture,
+            sub: token.sub,
+          },
+          NEXTAUTH_SECRET,
+          { algorithm: "HS256", expiresIn: "30d" }
+        );
       }
 
       return token;
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken as string | undefined;
-      session.refreshToken = token.refreshToken as string | undefined;
+      // backendToken = JWT signed with NEXTAUTH_SECRET for backend auth
+      session.accessToken = token.backendToken as string | undefined;
+      // googleAccessToken = actual Google OAuth token for YouTube API
+      session.googleAccessToken = token.googleAccessToken as string | undefined;
+      session.refreshToken = token.googleRefreshToken as string | undefined;
       if (session.user) {
         (session.user as any).id = (token.userId as string | undefined) || (token.sub as string | undefined);
       }
-      (session as any).planType = (token as any).planType || "free";
       return session;
     },
     async redirect({ url, baseUrl }) {
