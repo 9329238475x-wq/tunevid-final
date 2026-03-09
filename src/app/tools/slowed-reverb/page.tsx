@@ -24,6 +24,7 @@ export default function SlowedReverbPage() {
   const [file, setFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
@@ -76,6 +77,7 @@ export default function SlowedReverbPage() {
     setIsProcessing(true);
     setError(null);
     setResultUrl(null);
+    setUploadProgress(0);
 
     const form = new FormData();
     form.append("audio_file", file);
@@ -88,6 +90,10 @@ export default function SlowedReverbPage() {
         headers: {
           "Content-Type": "multipart/form-data",
           ...(session?.accessToken ? { Authorization: `Bearer ${session.accessToken}` } : {}),
+        },
+        onUploadProgress: (event) => {
+          if (!event.total) return;
+          setUploadProgress(Math.min(100, Math.round((event.loaded * 100) / event.total)));
         },
       });
       setResultUrl(res.data?.download_url);
@@ -118,6 +124,7 @@ export default function SlowedReverbPage() {
     setFile(null);
     setResultUrl(null);
     setError(null);
+    setUploadProgress(0);
     if (audioUrl) URL.revokeObjectURL(audioUrl);
     setAudioUrl(null);
   };
@@ -279,6 +286,14 @@ export default function SlowedReverbPage() {
               <Loader2 className="h-5 w-5 animate-spin text-purple-500" strokeWidth={2} />
               Rendering slowed + reverb audio...
             </div>
+            {uploadProgress > 0 && uploadProgress < 100 && (
+              <div>
+                <div className="h-2 rounded-full bg-zinc-200 dark:bg-zinc-800">
+                  <div className="h-2 rounded-full bg-purple-500 transition-all" style={{ width: `${uploadProgress}%` }} />
+                </div>
+                <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">Uploading file: {uploadProgress}%</p>
+              </div>
+            )}
             <div className="h-2 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
               <div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 animate-pulse" style={{ width: "60%" }} />
             </div>

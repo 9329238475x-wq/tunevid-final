@@ -16,6 +16,7 @@ export default function AudioMergerPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [dragActive, setDragActive] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [crossfade, setCrossfade] = useState(false);
@@ -74,6 +75,7 @@ export default function AudioMergerPage() {
     setIsProcessing(true);
     setError(null);
     setResultUrl(null);
+    setUploadProgress(0);
 
     const form = new FormData();
     files.forEach((file) => form.append("files", file));
@@ -83,6 +85,10 @@ export default function AudioMergerPage() {
     try {
       const res = await axios.post(`${API_BASE}/api/tools/merge-audio`, form, {
         headers: { "Content-Type": "multipart/form-data", ...(session?.accessToken ? { Authorization: `Bearer ${session.accessToken}` } : {}) },
+        onUploadProgress: (event) => {
+          if (!event.total) return;
+          setUploadProgress(Math.min(100, Math.round((event.loaded * 100) / event.total)));
+        },
       });
       setResultUrl(res.data?.download_url);
     } catch (err) {
@@ -100,6 +106,7 @@ export default function AudioMergerPage() {
     setFiles([]);
     setResultUrl(null);
     setError(null);
+    setUploadProgress(0);
   };
 
   return (
@@ -236,6 +243,14 @@ export default function AudioMergerPage() {
             <Loader2 className="h-4 w-4 animate-spin text-cyan-500" strokeWidth={1.5} />
             Merging your tracks...
           </div>
+          {uploadProgress > 0 && uploadProgress < 100 && (
+            <div className="mt-3">
+              <div className="h-2 rounded-full bg-zinc-200 dark:bg-zinc-800">
+                <div className="h-2 rounded-full bg-cyan-500 transition-all" style={{ width: `${uploadProgress}%` }} />
+              </div>
+              <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">Uploading files: {uploadProgress}%</p>
+            </div>
+          )}
         </section>
       )}
 

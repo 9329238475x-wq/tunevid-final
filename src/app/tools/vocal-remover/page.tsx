@@ -123,6 +123,7 @@ export default function VocalRemoverPage() {
   const [file, setFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [mode, setMode] = useState("2stems");
   const [model, setModel] = useState("htdemucs_ft");
@@ -168,6 +169,7 @@ export default function VocalRemoverPage() {
     setError(null);
     setResult(null);
     setTaskId(null);
+    setUploadProgress(0);
 
     const form = new FormData();
     form.append("audio_file", file);
@@ -177,6 +179,10 @@ export default function VocalRemoverPage() {
     try {
       const res = await axios.post(`${API_BASE}/api/tools/vocal-remover`, form, {
         headers: { "Content-Type": "multipart/form-data", ...(session?.accessToken ? { Authorization: `Bearer ${session.accessToken}` } : {}) },
+        onUploadProgress: (event) => {
+          if (!event.total) return;
+          setUploadProgress(Math.min(100, Math.round((event.loaded * 100) / event.total)));
+        },
         timeout: 600000, // 10 min timeout for large files
       });
 
@@ -209,6 +215,7 @@ export default function VocalRemoverPage() {
     setError(null);
     setTaskId(null);
     setPlayingStem(null);
+    setUploadProgress(0);
   };
 
   const handlePlayStem = (stemName: string) => {
@@ -375,6 +382,14 @@ export default function VocalRemoverPage() {
             <Loader2 className="h-5 w-5 animate-spin text-emerald-500" strokeWidth={2} />
             AI is separating your audio...
           </div>
+          {uploadProgress > 0 && uploadProgress < 100 && (
+            <div>
+              <div className="h-2 rounded-full bg-zinc-200 dark:bg-zinc-800">
+                <div className="h-2 rounded-full bg-emerald-500 transition-all" style={{ width: `${uploadProgress}%` }} />
+              </div>
+              <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">Uploading file: {uploadProgress}%</p>
+            </div>
+          )}
           <p className="text-xs text-zinc-500 dark:text-zinc-400">
             Using <span className="font-semibold">{model === "htdemucs_ft" ? "Fine-tuned" : "Standard"}</span> Demucs model for{" "}
             {mode === "2stems" ? "2-stem" : "4-stem"} separation. This may take a few minutes.

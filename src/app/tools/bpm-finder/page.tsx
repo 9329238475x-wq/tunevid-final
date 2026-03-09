@@ -32,6 +32,7 @@ export default function BPMFinderPage() {
   const [file, setFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
@@ -77,6 +78,7 @@ export default function BPMFinderPage() {
     setIsAnalyzing(true);
     setError(null);
     setResult(null);
+    setUploadProgress(0);
 
     const form = new FormData();
     form.append("audio_file", file);
@@ -84,6 +86,10 @@ export default function BPMFinderPage() {
     try {
       const res = await axios.post(`${API_BASE}/api/tools/analyze-bpm`, form, {
         headers: { "Content-Type": "multipart/form-data", ...(session?.accessToken ? { Authorization: `Bearer ${session.accessToken}` } : {}) },
+        onUploadProgress: (event) => {
+          if (!event.total) return;
+          setUploadProgress(Math.min(100, Math.round((event.loaded * 100) / event.total)));
+        },
       });
       setResult(res.data);
     } catch (err) {
@@ -101,6 +107,7 @@ export default function BPMFinderPage() {
     setFile(null);
     setResult(null);
     setError(null);
+    setUploadProgress(0);
     if (audioUrl) {
       URL.revokeObjectURL(audioUrl);
       setAudioUrl(null);
@@ -184,6 +191,14 @@ export default function BPMFinderPage() {
             <Loader2 className="h-4 w-4 animate-spin text-green-500" strokeWidth={1.5} />
             Analyzing Tempo and Pitch...
           </div>
+          {uploadProgress > 0 && uploadProgress < 100 && (
+            <div className="mt-3">
+              <div className="h-2 rounded-full bg-zinc-200 dark:bg-zinc-800">
+                <div className="h-2 rounded-full bg-emerald-500 transition-all" style={{ width: `${uploadProgress}%` }} />
+              </div>
+              <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">Uploading file: {uploadProgress}%</p>
+            </div>
+          )}
         </section>
       )}
 
