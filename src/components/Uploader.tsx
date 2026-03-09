@@ -450,10 +450,13 @@ export default function Uploader() {
                                                 )}
                                             </div>
                                         ) : (
-                                            <div className="flex h-full flex-col items-center justify-center gap-1.5 text-center">
+                                            <div className="flex h-full flex-col items-center justify-center gap-2.5 text-center">
                                                 <Music className="h-6 w-6 text-zinc-300 dark:text-zinc-600 sm:h-7 sm:w-7" strokeWidth={1.2} />
-                                                <p className="text-xs font-medium text-zinc-700 dark:text-zinc-300 sm:text-sm">Add audio</p>
-                                                <p className="text-[10px] text-zinc-400 sm:text-[11px]">MP3/WAV/FLAC</p>
+                                                <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-800 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
+                                                    <Upload className="h-3.5 w-3.5" strokeWidth={1.8} />
+                                                    Upload files
+                                                </span>
+                                                <p className="text-[10px] text-zinc-500 dark:text-zinc-400 sm:text-[11px]">Audio (MP3/WAV/FLAC)</p>
                                             </div>
                                         )}
                                     </div>
@@ -513,10 +516,13 @@ export default function Uploader() {
                                                 )}
                                             </div>
                                         ) : (
-                                            <div className="flex h-full flex-col items-center justify-center gap-1.5 text-center">
+                                            <div className="flex h-full flex-col items-center justify-center gap-2.5 text-center">
                                                 <ImageIcon className="h-6 w-6 text-zinc-300 dark:text-zinc-600 sm:h-7 sm:w-7" strokeWidth={1.2} />
-                                                <p className="text-xs font-medium text-zinc-700 dark:text-zinc-300 sm:text-sm">Add artwork</p>
-                                                <p className="text-[10px] text-zinc-400 sm:text-[11px]">JPG/PNG/WebP</p>
+                                                <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-800 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
+                                                    <Upload className="h-3.5 w-3.5" strokeWidth={1.8} />
+                                                    Upload files
+                                                </span>
+                                                <p className="text-[10px] text-zinc-500 dark:text-zinc-400 sm:text-[11px]">Artwork (JPG/PNG/WebP)</p>
                                             </div>
                                         )}
                                     </div>
