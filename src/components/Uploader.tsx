@@ -1,29 +1,24 @@
-"use client";
+﻿"use client";
 
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import axios from "axios";
-import { useDropzone } from "react-dropzone";
 import { useSession, signIn } from "next-auth/react";
 import {
+    AlertCircle,
     AlignLeft,
     CheckCircle,
     CloudUpload,
     EyeOff,
     Globe,
-    Image as ImageIcon,
     Loader2,
     Lock,
-    Music,
     Tags as TagsIcon,
     Type,
     Upload,
     Youtube,
     X,
-    FileAudio,
-    FileImage,
     Sparkles,
     Shield,
-    Clock,
     Send,
     Minimize2,
     Maximize2,
@@ -37,7 +32,7 @@ const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
 
 const fmt = (bytes: number) => `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 
-/* ─── localStorage helpers for persistent task tracking ─── */
+/* â”€â”€â”€ localStorage helpers for persistent task tracking â”€â”€â”€ */
 const STORAGE_KEY = "tunevid_active_task";
 
 function saveTask(taskId: string) {
@@ -50,11 +45,11 @@ function clearTask() {
     try { localStorage.removeItem(STORAGE_KEY); } catch { }
 }
 
-/* ───────────────────────── component ───────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 export default function Uploader() {
     const { data: session } = useSession();
 
-    // ── File state ──
+    // â”€â”€ File state â”€â”€
     const [audioFile, setAudioFile] = useState<File | null>(null);
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [audioFileId, setAudioFileId] = useState<string | null>(null);
@@ -66,7 +61,7 @@ export default function Uploader() {
     const [audioUploaded, setAudioUploaded] = useState(false);
     const [imageUploaded, setImageUploaded] = useState(false);
 
-    // ── Metadata state ──
+    // â”€â”€ Metadata state â”€â”€
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [privacyStatus, setPrivacyStatus] = useState("private");
@@ -75,7 +70,7 @@ export default function Uploader() {
     const [categoryId, setCategoryId] = useState("10");
     const [publishWhenReady, setPublishWhenReady] = useState(false);
 
-    // ── Processing state ──
+    // â”€â”€ Processing state â”€â”€
     const [isProcessing, setIsProcessing] = useState(false);
     const [taskId, setTaskId] = useState<string | null>(null);
     const [progress, setProgress] = useState(0);
@@ -83,25 +78,14 @@ export default function Uploader() {
     const [youtubeUrl, setYoutubeUrl] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    // ── Minimizable UI state ──
+    // â”€â”€ Minimizable UI state â”€â”€
     const [isMinimized, setIsMinimized] = useState(false);
 
     const eventSourceRef = useRef<EventSource | null>(null);
-
-    // Image preview URL
-    const imagePreviewUrl = useMemo(
-        () => (imageFile ? URL.createObjectURL(imageFile) : null),
-        [imageFile]
-    );
-
-    useEffect(() => {
-        return () => {
-            if (imagePreviewUrl) URL.revokeObjectURL(imagePreviewUrl);
-        };
-    }, [imagePreviewUrl]);
+    const unifiedUploadInputRef = useRef<HTMLInputElement | null>(null);
 
 
-    /* ── SSE progress listener ── */
+    /* â”€â”€ SSE progress listener â”€â”€ */
     const listenSSE = useCallback((id: string) => {
         eventSourceRef.current?.close();
         const es = new EventSource(`${API_BASE}/progress/${id}`);
@@ -111,7 +95,7 @@ export default function Uploader() {
             try {
                 const data = JSON.parse(event.data);
                 setProgress(data.progress ?? 0);
-                setStatusMsg(data.message ?? "Processing…");
+                setStatusMsg(data.message ?? "Processingâ€¦");
                 if (data.youtube_url) setYoutubeUrl(data.youtube_url);
                 if (data.progress >= 100) {
                     setIsProcessing(false);
@@ -155,13 +139,13 @@ export default function Uploader() {
         };
     }, []);
 
-    /* ── Restore active task on mount (page refresh persistence) ── */
+    /* â”€â”€ Restore active task on mount (page refresh persistence) â”€â”€ */
     useEffect(() => {
         const savedTask = loadTask();
         if (savedTask) {
             setTaskId(savedTask);
             setIsProcessing(true);
-            setStatusMsg("Reconnecting…");
+            setStatusMsg("Reconnectingâ€¦");
             setProgress(0);
             listenSSE(savedTask);
         }
@@ -170,7 +154,7 @@ export default function Uploader() {
         };
     }, [listenSSE]);
 
-    /* ── Publish (no file upload, uses pre-uploaded file IDs) ── */
+    /* â”€â”€ Publish (no file upload, uses pre-uploaded file IDs) â”€â”€ */
     const handlePublish = useCallback(async () => {
         if (!audioFileId || !imageFileId) return;
         if (!(session as any)?.googleAccessToken) {
@@ -182,7 +166,7 @@ export default function Uploader() {
         setError(null);
         setYoutubeUrl(null);
         setProgress(2);
-        setStatusMsg("Starting video generation…");
+        setStatusMsg("Starting video generationâ€¦");
 
         const form = new FormData();
         form.append("audio_file_id", audioFileId);
@@ -219,7 +203,7 @@ export default function Uploader() {
         }
     }, [audioUploaded, imageUploaded, publishWhenReady, isProcessing, youtubeUrl, handlePublish]);
 
-    /* ── Upload a single file to server immediately ── */
+    /* â”€â”€ Upload a single file to server immediately â”€â”€ */
     const uploadFileToServer = useCallback(
         async (file: File, fileType: "audio" | "image") => {
             const setUploading = fileType === "audio" ? setAudioUploading : setImageUploading;
@@ -262,43 +246,42 @@ export default function Uploader() {
         []
     );
 
-    /* ── Dropzones (separate for audio and image) ── */
-    const audioDz = useDropzone({
-        maxSize: MAX_SIZE,
-        multiple: false,
-        accept: { "audio/*": [".mp3", ".wav", ".flac", ".m4a", ".ogg"] },
-        onDrop: (files) => {
-            const f = files[0];
-            if (!f) return;
-            setAudioFile(f);
-            setAudioFileId(null);
-            setAudioUploaded(false);
-            setAudioUploadProgress(0);
-            setError(null);
-            setYoutubeUrl(null);
-            uploadFileToServer(f, "audio");
-        },
-    });
+    /* â”€â”€ Dropzones (separate for audio and image) â”€â”€ */
+    const handleUnifiedUpload = useCallback((files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const selected = Array.from(files);
+    const audioCandidate = selected.find((f) =>
+        f.size <= MAX_SIZE && (f.type.startsWith("audio/") || /\.(mp3|wav|flac|m4a|ogg)$/i.test(f.name))
+    );
+    const imageCandidate = selected.find((f) =>
+        f.size <= MAX_SIZE && (f.type.startsWith("image/") || /\.(jpg|jpeg|png|webp)$/i.test(f.name))
+    );
 
-    const imageDz = useDropzone({
-        maxSize: MAX_SIZE,
-        multiple: false,
-        accept: { "image/*": [".jpg", ".jpeg", ".png", ".webp"] },
-        onDrop: (files) => {
-            const f = files[0];
-            if (!f) return;
-            setImageFile(f);
-            setImageFileId(null);
-            setImageUploaded(false);
-            setImageUploadProgress(0);
-            setError(null);
-            setYoutubeUrl(null);
-            uploadFileToServer(f, "image");
-        },
-    });
+    if (audioCandidate) {
+        setAudioFile(audioCandidate);
+        setAudioFileId(null);
+        setAudioUploaded(false);
+        setAudioUploadProgress(0);
+        setError(null);
+        setYoutubeUrl(null);
+        uploadFileToServer(audioCandidate, "audio");
+    }
+    if (imageCandidate) {
+        setImageFile(imageCandidate);
+        setImageFileId(null);
+        setImageUploaded(false);
+        setImageUploadProgress(0);
+        setError(null);
+        setYoutubeUrl(null);
+        uploadFileToServer(imageCandidate, "image");
+    }
+    if (!audioCandidate && !imageCandidate) {
+        setError("Please select at least one valid audio or image file (max 50 MB).");
+    }
+}, [uploadFileToServer]);
 
 
-    /* ── Cancel ── */
+    /* â”€â”€ Cancel â”€â”€ */
     const handleCancel = async () => {
         if (!taskId) return;
         try {
@@ -314,7 +297,7 @@ export default function Uploader() {
         clearTask();
     };
 
-    /* ── Reset ── */
+    /* â”€â”€ Reset â”€â”€ */
     const resetAll = () => {
         setAudioFile(null);
         setImageFile(null);
@@ -346,7 +329,7 @@ export default function Uploader() {
     const bothUploaded = audioUploaded && imageUploaded;
     const isReady = bothUploaded && !!(session as any)?.googleAccessToken;
 
-    /* ── Circular progress ring helper ── */
+    /* â”€â”€ Circular progress ring helper â”€â”€ */
     const CircleProgress = ({ pct, size = 44, stroke = 3.5 }: { pct: number; size?: number; stroke?: number }) => {
         const r = (size - stroke) / 2;
         const c = 2 * Math.PI * r;
@@ -376,18 +359,18 @@ export default function Uploader() {
         );
     };
 
-    /* ═══════════════════════════ RENDER ═══════════════════════════ */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• RENDER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     return (
         <>
             <div className="mx-auto max-w-4xl px-6 pb-16 pt-2 space-y-5 text-zinc-900 dark:text-zinc-100">
 
-                {/* ── Header ── */}
+                {/* â”€â”€ Header â”€â”€ */}
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-semibold text-zinc-900 dark:text-zinc-100">
                         Upload to YouTube
                     </h1>
                     <p className="text-sm text-zinc-500 mt-1.5 dark:text-zinc-400">
-                        Select audio &amp; artwork — they upload instantly. Fill in details, then publish.
+                        Select audio &amp; artwork â€” they upload instantly. Fill in details, then publish.
                     </p>
                 </div>
 
@@ -405,135 +388,76 @@ export default function Uploader() {
                                 )}
                             </div>
 
-                            <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                                {/* Audio Dropzone */}
-                                <div className="relative">
-                                    <div
-                                        {...audioDz.getRootProps()}
-                                        className={`min-h-[120px] cursor-pointer rounded-xl border-2 border-dashed p-3 transition-all sm:min-h-[132px]
-                                            ${audioDz.isDragActive
-                                                ? "border-emerald-400 bg-emerald-50/50 dark:bg-emerald-900/10"
-                                                : audioUploaded
-                                                    ? "border-emerald-300 bg-emerald-50/30 dark:border-emerald-800/50 dark:bg-emerald-900/5"
-                                                    : "border-zinc-200 bg-zinc-50/50 hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/30 dark:hover:border-zinc-700"
-                                            }`}
-                                    >
-                                        <input {...audioDz.getInputProps()} />
+                            <div className="space-y-3">
+                                <input
+                                    ref={unifiedUploadInputRef}
+                                    type="file"
+                                    accept=".mp3,.wav,.flac,.m4a,.ogg,.jpg,.jpeg,.png,.webp,audio/*,image/*"
+                                    multiple
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        handleUnifiedUpload(e.target.files);
+                                        e.currentTarget.value = "";
+                                    }}
+                                />
 
-                                        {audioFile ? (
-                                            <div className="flex h-full flex-col justify-between gap-2">
-                                                <div className="flex items-start gap-2">
-                                                    <div className="mt-0.5 rounded-md bg-emerald-50 p-1.5 dark:bg-emerald-900/20">
-                                                        <FileAudio className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
-                                                    </div>
-                                                    <div className="min-w-0 flex-1">
-                                                        <p title={audioFile.name} className="max-w-full truncate text-xs font-medium text-zinc-900 dark:text-zinc-100 sm:text-sm">
-                                                            {audioFile.name}
-                                                        </p>
-                                                        <p className="mt-0.5 text-[10px] text-zinc-400 sm:text-xs">{fmt(audioFile.size)}</p>
-                                                    </div>
-                                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => unifiedUploadInputRef.current?.click()}
+                                    className="mx-auto flex items-center gap-1.5 rounded-md bg-blue-800 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700"
+                                >
+                                    <Upload className="h-4 w-4" strokeWidth={1.8} />
+                                    Upload files
+                                </button>
 
-                                                {audioUploading && (
-                                                    <div>
-                                                        <div className="relative h-1.5 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
-                                                            <div
-                                                                className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-300 ease-out"
-                                                                style={{ width: `${audioUploadProgress}%` }}
-                                                            />
-                                                        </div>
-                                                        <p className="mt-1 text-[10px] text-zinc-400">{audioUploadProgress}% uploaded</p>
-                                                    </div>
-                                                )}
-                                                {audioUploaded && (
-                                                    <p className="text-[10px] font-medium text-emerald-500">Uploaded</p>
-                                                )}
-                                            </div>
-                                        ) : (
-                                            <div className="flex h-full flex-col items-center justify-center gap-2.5 text-center">
-                                                <Music className="h-6 w-6 text-zinc-300 dark:text-zinc-600 sm:h-7 sm:w-7" strokeWidth={1.2} />
-                                                <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-800 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
-                                                    <Upload className="h-3.5 w-3.5" strokeWidth={1.8} />
-                                                    Upload files
-                                                </span>
-                                                <p className="text-[10px] text-zinc-500 dark:text-zinc-400 sm:text-[11px]">Audio (MP3/WAV/FLAC)</p>
-                                            </div>
+                                <div className={`flex items-center justify-between rounded-lg px-3 py-3 text-sm ${audioUploaded ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/15 dark:text-emerald-300" : "bg-rose-50 text-rose-700 dark:bg-rose-900/15 dark:text-rose-300"}`}>
+                                    <div className="flex min-w-0 items-center gap-2">
+                                        {audioUploaded ? <CheckCircle className="h-4 w-4 shrink-0" /> : <AlertCircle className="h-4 w-4 shrink-0" />}
+                                        <span className="truncate">{audioUploaded ? (audioFile?.name || "Audio uploaded") : "Audio not uploaded"}</span>
+                                    </div>
+                                    <div className="ml-2 flex items-center gap-2">
+                                        {audioUploading && <span className="text-xs">{audioUploadProgress}%</span>}
+                                        {audioFile && !audioUploading && (
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setAudioFile(null);
+                                                    setAudioFileId(null);
+                                                    setAudioUploaded(false);
+                                                    setAudioUploadProgress(0);
+                                                }}
+                                                className="rounded p-1 transition hover:bg-black/5 dark:hover:bg-white/10"
+                                                aria-label="Remove audio"
+                                            >
+                                                <X className="h-3.5 w-3.5" />
+                                            </button>
                                         )}
                                     </div>
-                                    {audioFile && !audioUploading && (
-                                        <button
-                                            onClick={(e) => { e.stopPropagation(); setAudioFile(null); setAudioFileId(null); setAudioUploaded(false); setAudioUploadProgress(0); }}
-                                            className="absolute right-2 top-2 rounded-full bg-zinc-100 p-1 transition hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
-                                        >
-                                            <X className="h-3 w-3 text-zinc-500" />
-                                        </button>
-                                    )}
                                 </div>
 
-                                {/* Image Dropzone */}
-                                <div className="relative">
-                                    <div
-                                        {...imageDz.getRootProps()}
-                                        className={`min-h-[120px] cursor-pointer rounded-xl border-2 border-dashed p-3 transition-all sm:min-h-[132px]
-                                            ${imageDz.isDragActive
-                                                ? "border-emerald-400 bg-emerald-50/50 dark:bg-emerald-900/10"
-                                                : imageUploaded
-                                                    ? "border-emerald-300 bg-emerald-50/30 dark:border-emerald-800/50 dark:bg-emerald-900/5"
-                                                    : "border-zinc-200 bg-zinc-50/50 hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/30 dark:hover:border-zinc-700"
-                                            }`}
-                                    >
-                                        <input {...imageDz.getInputProps()} />
-
-                                        {imageFile && imagePreviewUrl ? (
-                                            <div className="flex h-full flex-col justify-between gap-2">
-                                                <div className="flex items-start gap-2">
-                                                    <img
-                                                        src={imagePreviewUrl}
-                                                        alt="cover"
-                                                        className="h-16 w-16 rounded-lg object-cover shadow-sm sm:h-20 sm:w-20"
-                                                    />
-                                                    <div className="min-w-0 flex-1">
-                                                        <p title={imageFile.name} className="max-w-full truncate text-xs font-medium text-zinc-900 dark:text-zinc-100 sm:text-sm">
-                                                            {imageFile.name}
-                                                        </p>
-                                                        <p className="mt-0.5 text-[10px] text-zinc-400 sm:text-xs">{fmt(imageFile.size)}</p>
-                                                    </div>
-                                                </div>
-
-                                                {imageUploading && (
-                                                    <div>
-                                                        <div className="relative h-1.5 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
-                                                            <div
-                                                                className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-300 ease-out"
-                                                                style={{ width: `${imageUploadProgress}%` }}
-                                                            />
-                                                        </div>
-                                                        <p className="mt-1 text-[10px] text-zinc-400">{imageUploadProgress}% uploaded</p>
-                                                    </div>
-                                                )}
-                                                {imageUploaded && (
-                                                    <p className="text-[10px] font-medium text-emerald-500">Uploaded</p>
-                                                )}
-                                            </div>
-                                        ) : (
-                                            <div className="flex h-full flex-col items-center justify-center gap-2.5 text-center">
-                                                <ImageIcon className="h-6 w-6 text-zinc-300 dark:text-zinc-600 sm:h-7 sm:w-7" strokeWidth={1.2} />
-                                                <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-800 px-3 py-1.5 text-xs font-semibold text-white shadow-sm">
-                                                    <Upload className="h-3.5 w-3.5" strokeWidth={1.8} />
-                                                    Upload files
-                                                </span>
-                                                <p className="text-[10px] text-zinc-500 dark:text-zinc-400 sm:text-[11px]">Artwork (JPG/PNG/WebP)</p>
-                                            </div>
+                                <div className={`flex items-center justify-between rounded-lg px-3 py-3 text-sm ${imageUploaded ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/15 dark:text-emerald-300" : "bg-rose-50 text-rose-700 dark:bg-rose-900/15 dark:text-rose-300"}`}>
+                                    <div className="flex min-w-0 items-center gap-2">
+                                        {imageUploaded ? <CheckCircle className="h-4 w-4 shrink-0" /> : <AlertCircle className="h-4 w-4 shrink-0" />}
+                                        <span className="truncate">{imageUploaded ? (imageFile?.name || "Image uploaded") : "Image not uploaded"}</span>
+                                    </div>
+                                    <div className="ml-2 flex items-center gap-2">
+                                        {imageUploading && <span className="text-xs">{imageUploadProgress}%</span>}
+                                        {imageFile && !imageUploading && (
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setImageFile(null);
+                                                    setImageFileId(null);
+                                                    setImageUploaded(false);
+                                                    setImageUploadProgress(0);
+                                                }}
+                                                className="rounded p-1 transition hover:bg-black/5 dark:hover:bg-white/10"
+                                                aria-label="Remove image"
+                                            >
+                                                <X className="h-3.5 w-3.5" />
+                                            </button>
                                         )}
                                     </div>
-                                    {imageFile && !imageUploading && (
-                                        <button
-                                            onClick={(e) => { e.stopPropagation(); setImageFile(null); setImageFileId(null); setImageUploaded(false); setImageUploadProgress(0); }}
-                                            className="absolute right-2 top-2 rounded-full bg-zinc-100 p-1 transition hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
-                                        >
-                                            <X className="h-3 w-3 text-zinc-500" />
-                                        </button>
-                                    )}
                                 </div>
                             </div>
                         </div>
@@ -580,9 +504,9 @@ export default function Uploader() {
                                             onChange={(e) => setPrivacyStatus(e.target.value)}
                                             className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
                                         >
-                                            <option value="public">🌐 Public</option>
-                                            <option value="unlisted">🔗 Unlisted</option>
-                                            <option value="private">🔒 Private</option>
+                                            <option value="public">ðŸŒ Public</option>
+                                            <option value="unlisted">ðŸ”— Unlisted</option>
+                                            <option value="private">ðŸ”’ Private</option>
                                         </select>
                                         <div className="flex items-center gap-1.5 text-[11px] text-zinc-400 dark:text-zinc-500 pl-0.5">
                                             {privacyStatus === "public" && <><Globe className="w-3 h-3" /><span>Visible to everyone</span></>}
@@ -632,21 +556,21 @@ export default function Uploader() {
                                             onChange={(e) => setCategoryId(e.target.value)}
                                             className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:focus:ring-emerald-800"
                                         >
-                                            <option value="10">🎵 Music</option>
-                                            <option value="24">🎬 Entertainment</option>
-                                            <option value="20">🎮 Gaming</option>
-                                            <option value="27">📚 Education</option>
-                                            <option value="22">📝 People &amp; Blogs</option>
-                                            <option value="23">😂 Comedy</option>
-                                            <option value="25">📰 News &amp; Politics</option>
-                                            <option value="26">💡 Howto &amp; Style</option>
-                                            <option value="28">🔬 Science &amp; Technology</option>
-                                            <option value="1">🎞️ Film &amp; Animation</option>
-                                            <option value="2">🚗 Autos &amp; Vehicles</option>
-                                            <option value="15">🐾 Pets &amp; Animals</option>
-                                            <option value="17">⚽ Sports</option>
-                                            <option value="19">✈️ Travel &amp; Events</option>
-                                            <option value="29">🤝 Nonprofits &amp; Activism</option>
+                                            <option value="10">ðŸŽµ Music</option>
+                                            <option value="24">ðŸŽ¬ Entertainment</option>
+                                            <option value="20">ðŸŽ® Gaming</option>
+                                            <option value="27">ðŸ“š Education</option>
+                                            <option value="22">ðŸ“ People &amp; Blogs</option>
+                                            <option value="23">ðŸ˜‚ Comedy</option>
+                                            <option value="25">ðŸ“° News &amp; Politics</option>
+                                            <option value="26">ðŸ’¡ Howto &amp; Style</option>
+                                            <option value="28">ðŸ”¬ Science &amp; Technology</option>
+                                            <option value="1">ðŸŽžï¸ Film &amp; Animation</option>
+                                            <option value="2">ðŸš— Autos &amp; Vehicles</option>
+                                            <option value="15">ðŸ¾ Pets &amp; Animals</option>
+                                            <option value="17">âš½ Sports</option>
+                                            <option value="19">âœˆï¸ Travel &amp; Events</option>
+                                            <option value="29">ðŸ¤ Nonprofits &amp; Activism</option>
                                         </select>
                                     </div>
 
@@ -674,7 +598,7 @@ export default function Uploader() {
                     </div>
                 )}
 
-                {/* ═══════════════ PROCESSING PROGRESS (FULL VIEW) ═══════════════ */}
+                {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• PROCESSING PROGRESS (FULL VIEW) â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
                 {isProcessing && !isMinimized && (
                     <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 transition-all duration-300 animate-in fade-in">
                         <div className="flex items-center justify-between mb-5">
@@ -696,7 +620,7 @@ export default function Uploader() {
                                 <button
                                     onClick={() => setIsMinimized(true)}
                                     className="flex items-center gap-1 text-xs text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition font-medium rounded-md px-2 py-1 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                                    title="Minimize — processing continues in background"
+                                    title="Minimize â€” processing continues in background"
                                 >
                                     <Minimize2 className="w-3.5 h-3.5" />
                                     Minimize
@@ -736,12 +660,12 @@ export default function Uploader() {
                         `}</style>
 
                         <p className="mt-3 text-[11px] text-zinc-400 dark:text-zinc-500 text-center">
-                            You can minimize this and continue browsing — processing won&apos;t stop
+                            You can minimize this and continue browsing â€” processing won&apos;t stop
                         </p>
                     </div>
                 )}
 
-                {/* ═══════════════ SUCCESS ═══════════════ */}
+                {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SUCCESS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
                 {youtubeUrl && (
                     <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-8 text-center space-y-4 dark:border-emerald-800/30 dark:bg-emerald-900/5 transition-all duration-200">
                         <div className="flex items-center justify-center gap-2">
@@ -749,7 +673,7 @@ export default function Uploader() {
                             <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">Video Published!</h2>
                         </div>
                         <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                            Your video is live on YouTube — original quality preserved.
+                            Your video is live on YouTube â€” original quality preserved.
                         </p>
                         <a
                             href={youtubeUrl}
@@ -771,10 +695,10 @@ export default function Uploader() {
                     </div>
                 )}
 
-                {/* ═══════════════ ERROR ═══════════════ */}
+                {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ERROR â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
                 {error && (
                     <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-2.5 sm:gap-3 sm:p-4 dark:border-red-800/30 dark:bg-red-900/10">
-                        <span className="text-red-500 mt-0.5 shrink-0">⚠️</span>
+                        <span className="text-red-500 mt-0.5 shrink-0">âš ï¸</span>
                         <p className="flex-1 text-xs text-red-600 dark:text-red-400 sm:text-sm">{error}</p>
                         <button onClick={() => setError(null)} className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 shrink-0">
                             <X className="w-4 h-4" />
@@ -782,7 +706,7 @@ export default function Uploader() {
                     </div>
                 )}
 
-                {/* ═══════════════ PUBLISH BUTTON + CHECKBOX ═══════════════ */}
+                {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• PUBLISH BUTTON + CHECKBOX â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
                 {!isProcessing && !youtubeUrl && (
                     <div className="space-y-3">
                         <button
@@ -808,7 +732,7 @@ export default function Uploader() {
                                     <>
                                         <Loader2 className={`w-4 h-4 ${(audioUploading || imageUploading) ? "animate-spin" : ""}`} strokeWidth={1.5} />
                                         {audioUploading || imageUploading
-                                            ? "Uploading files…"
+                                            ? "Uploading filesâ€¦"
                                             : "Select audio & image to continue"}
                                     </>
                                 ) : (
@@ -833,7 +757,7 @@ export default function Uploader() {
                 )}
             </div>
 
-            {/* ═══════════════ MINIMIZED FLOATING TOAST ═══════════════ */}
+            {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• MINIMIZED FLOATING TOAST â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
             {isProcessing && isMinimized && (
                 <div
                     className="fixed bottom-5 right-5 z-50 animate-in slide-in-from-bottom-4 fade-in duration-300"
@@ -863,7 +787,7 @@ export default function Uploader() {
                             {/* Status text */}
                             <div className="flex-1 min-w-0">
                                 <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 truncate">
-                                    {progress < 70 ? "Generating Video…" : progress < 99 ? "Uploading to YouTube…" : "Finishing…"}
+                                    {progress < 70 ? "Generating Videoâ€¦" : progress < 99 ? "Uploading to YouTubeâ€¦" : "Finishingâ€¦"}
                                 </p>
                                 <p className="text-[10px] text-zinc-400 dark:text-zinc-500 truncate">{statusMsg}</p>
                             </div>
@@ -883,3 +807,5 @@ export default function Uploader() {
         </>
     );
 }
+
+
