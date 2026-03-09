@@ -17,7 +17,7 @@ const handler = NextAuth({
           scope:
             "openid email profile https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly",
           access_type: "offline",
-          prompt: "select_account",
+          prompt: "consent select_account",
         },
       },
     }),
@@ -67,7 +67,7 @@ const handler = NextAuth({
       if (account?.provider === "google") {
         // Store Google tokens for YouTube API
         token.googleAccessToken = account.access_token;
-        token.googleRefreshToken = account.refresh_token;
+        token.googleRefreshToken = account.refresh_token ?? token.googleRefreshToken;
         token.expiresAt = account.expires_at;
         token.picture = (profile as any)?.picture ?? (profile as any)?.image;
       }
