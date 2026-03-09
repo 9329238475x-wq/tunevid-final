@@ -25,24 +25,24 @@ export default function PrivacyPolicyPage() {
 
       <article className="legal-content rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
         <p>
-          This Privacy Policy describes how TuneVid ("we", "our", "us") handles personal and technical data when
-          you access TuneVid websites, tools, and connected features.
+          This Privacy Policy describes how TuneVid handles personal and technical data when you use our websites,
+          tools, and connected account features.
         </p>
 
-        <h2>1. Data Categories</h2>
+        <h2>1. Information We Collect</h2>
         <ul>
-          <li>Identity and profile data: email, display name, and profile avatar.</li>
-          <li>Content data: files you submit for processing and generated outputs.</li>
-          <li>Usage and diagnostics: request logs, browser/device metadata, and error traces.</li>
-          <li>Connected account tokens required for user-authorized integrations.</li>
+          <li>Account details: email, display name, and profile image from sign-in providers.</li>
+          <li>Content data: files you upload for processing and generated outputs.</li>
+          <li>Technical logs: IP, browser, device metadata, and request diagnostics for security and reliability.</li>
+          <li>OAuth tokens needed for actions you authorize, such as YouTube publishing.</li>
         </ul>
 
-        <h2>2. Purpose of Processing</h2>
+        <h2>2. Why We Process Data</h2>
         <ul>
-          <li>Provide requested product features and process media workflows.</li>
-          <li>Enable secure authentication and connected platform actions.</li>
-          <li>Prevent abuse, secure infrastructure, and maintain service quality.</li>
-          <li>Measure product performance and improve user experience.</li>
+          <li>To provide tool functionality and complete processing tasks you request.</li>
+          <li>To authenticate users and protect accounts from abuse.</li>
+          <li>To monitor stability, fix errors, and improve service performance.</li>
+          <li>To satisfy legal and compliance obligations where required.</li>
         </ul>
 
         <h2>3. Google API Services Disclosure</h2>
@@ -51,58 +51,69 @@ export default function PrivacyPolicyPage() {
           <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer">
             Google API Services User Data Policy
           </a>
-          , including the Limited Use requirements.
+          , including Limited Use requirements.
         </p>
         <ul>
-          <li>Google/YouTube data is used only for user-authorized functionality.</li>
+          <li>Google and YouTube data is used only for user-authorized features.</li>
           <li>We do not sell Google user data.</li>
           <li>We do not use Google user data for cross-site ad targeting.</li>
         </ul>
 
-        <h2>4. Advertising and Cookie Notice</h2>
+        <h2>4. Advertising, Cookies, and Analytics</h2>
         <p>
-          We may use cookies for authentication, preferences, analytics, and ad delivery. If Google AdSense or
-          similar ad services are active, third-party vendors may use cookies to serve ads based on your visit
-          history across websites.
+          We use cookies for core functionality, security, preferences, analytics, and ad delivery. If Google AdSense
+          is active, third-party vendors may use cookies to serve ads based on prior visits to this and other sites.
         </p>
         <ul>
-          <li>Manage ad personalization: <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">adssettings.google.com</a></li>
-          <li>Industry opt-out portal: <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer">aboutads.info</a></li>
+          <li>
+            Manage ad personalization: <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">adssettings.google.com</a>
+          </li>
+          <li>
+            Industry opt-out portal: <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer">aboutads.info</a>
+          </li>
         </ul>
 
-        <h2>5. Retention and Deletion</h2>
+        <h2>5. Data Retention</h2>
         <ul>
-          <li>Temporary processing files are automatically removed after operational completion windows.</li>
-          <li>Platform logs may be retained for security, legal compliance, and fraud investigation.</li>
-          <li>You may contact us to request account-related support or deletion assistance.</li>
+          <li>Temporary files are deleted after processing windows and cleanup cycles.</li>
+          <li>Operational logs may be retained for security, fraud prevention, and incident response.</li>
+          <li>You may contact us for account-related deletion or privacy support requests.</li>
         </ul>
 
-        <h2>6. Data Sharing and Processors</h2>
+        <h2>6. Data Sharing</h2>
         <p>
-          We may share data only with service providers and APIs required to operate TuneVid, and with competent
-          authorities when legally required. We do not sell personal information.
+          We do not sell personal information. Data may be shared only with required infrastructure or API providers,
+          and with authorities when legally required.
         </p>
 
-        <h2>7. Security Practices</h2>
+        <h2>7. Security Measures</h2>
         <ul>
-          <li>TLS-encrypted traffic in transit.</li>
-          <li>Role-based operational access controls.</li>
-          <li>Automated monitoring and threat mitigation controls.</li>
+          <li>Encrypted data transfer over HTTPS/TLS.</li>
+          <li>Controlled operational access and credential safeguards.</li>
+          <li>Monitoring systems for abuse detection and threat mitigation.</li>
         </ul>
 
-        <h2>8. User Controls</h2>
+        <h2>8. Your Controls</h2>
         <ul>
-          <li>Revoke Google access: <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer">myaccount.google.com/permissions</a></li>
-          <li>Request support or privacy assistance by email.</li>
+          <li>
+            Revoke Google account access: <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer">myaccount.google.com/permissions</a>
+          </li>
+          <li>Contact us for privacy support, account questions, or policy requests.</li>
         </ul>
 
-        <h2>9. Children&apos;s Data</h2>
+        <h2>9. Children&apos;s Privacy</h2>
         <p>
-          TuneVid is not intended for children under 13. If you believe child data was provided in error,
-          contact us for removal.
+          TuneVid is not intended for children under 13. If child data is submitted by mistake, contact us to request
+          removal.
         </p>
 
-        <h2>10. Contact</h2>
+        <h2>10. Policy Updates</h2>
+        <p>
+          We may update this policy to reflect product, legal, or compliance changes. Material updates are shown by
+          revising the date at the top of this page.
+        </p>
+
+        <h2>11. Contact</h2>
         <p>
           Privacy contact: <a href="mailto:9329238475x@gmail.com">9329238475x@gmail.com</a>
         </p>
@@ -110,3 +121,4 @@ export default function PrivacyPolicyPage() {
     </div>
   );
 }
+

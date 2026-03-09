@@ -32,7 +32,8 @@ const TOOLS_LINKS = [
   { label: "BPM Finder", href: "/tools/bpm-finder" },
 ];
 
-const LEGAL_LINKS = [
+const RESOURCE_LINKS = [
+  { label: "Creator Resources", href: "/resources" },
   { label: "About Us", href: "/about" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms of Service", href: "/terms" },
@@ -171,7 +172,7 @@ export default function Footer() {
                 Resources
               </h4>
               <ul className="space-y-2.5">
-                {LEGAL_LINKS.map((link) => (
+                {RESOURCE_LINKS.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
@@ -240,3 +241,7 @@ export default function Footer() {
     </footer>
   );
 }
+
+
+
+
