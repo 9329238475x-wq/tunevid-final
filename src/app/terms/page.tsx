@@ -1,79 +1,106 @@
-export const metadata = {
+﻿export const metadata = {
   title: "Terms of Service | TuneVid",
   description:
-    "TuneVid Terms of Service covering user responsibilities, YouTube API usage, service rules, and legal terms.",
+    "Read TuneVid Terms of Service: eligibility, acceptable use, intellectual property, subscriptions, disclaimers, and contact details.",
 };
 
 export default function TermsPage() {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-14">
-      <article className="prose max-w-none dark:prose-invert">
-        <h1 className="text-4xl font-bold text-zinc-100">Terms of Service - TuneVid</h1>
-        <p className="text-zinc-400">
-          <strong>Effective Date:</strong> [DD/MM/YYYY]
+    <div className="mx-auto max-w-4xl px-6 py-16">
+      <div className="mb-6">
+        <p className="text-xs font-medium uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-400">
+          Legal
+        </p>
+        <h1 className="mt-2 text-3xl font-semibold text-zinc-900 dark:text-zinc-100 sm:text-4xl">
+          Terms of Service
+        </h1>
+        <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+          Effective date: March 9, 2026
+        </p>
+      </div>
+
+      <article className="legal-content rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+        <p>
+          These Terms of Service (&quot;Terms&quot;) govern your use of TuneVid websites, applications,
+          and related services (collectively, the &quot;Service&quot;). By using TuneVid, you agree to these
+          Terms and our Privacy Policy.
         </p>
 
-        <h2>3.1 Acceptance</h2>
-        <p className="text-zinc-400">
-          TuneVid use करके आप इन Terms और हमारी Privacy Policy से सहमत होते हैं।
-        </p>
-
-        <h2>3.2 Services</h2>
-        <p className="text-zinc-400">
-          TuneVid AI audio/video processing tools प्रदान करता है (e.g., AI audio tools, Video Visualizer,
-          YouTube automation support). Features समय के साथ बदल सकते हैं।
-        </p>
-
-        <h2>3.3 User Responsibilities</h2>
-        <ul className="text-zinc-400">
-          <li>आप केवल वही content upload करें जिसके लिए आपके पास rights/permissions हों।</li>
-          <li>Illegal, infringing, abusive, or harmful content निषिद्ध है।</li>
-          <li>Account security (credentials/password) की जिम्मेदारी user की होगी।</li>
+        <h2>1. Eligibility and Account Access</h2>
+        <ul>
+          <li>You must be legally capable of entering into a binding agreement in your jurisdiction.</li>
+          <li>You are responsible for maintaining the confidentiality of your account and login credentials.</li>
+          <li>You are responsible for activity that occurs under your account.</li>
         </ul>
 
-        <h2>3.4 Intellectual Property</h2>
-        <p className="text-zinc-400">
-          User content का ownership user के पास रहता है। TuneVid platform, branding, software, UI assets TuneVid
-          की property हैं। Unauthorized copying/reverse engineering prohibited है (जहाँ law permit न करे)।
+        <h2>2. Service Description</h2>
+        <p>
+          TuneVid provides creator tools such as audio processing, media transformation, and optional
+          YouTube publishing workflows. Features may be added, modified, or removed to improve security,
+          performance, and reliability.
         </p>
 
-        <h2>3.5 YouTube API &amp; Third-Party Platforms</h2>
-        <p className="text-zinc-400">
-          YouTube integration use करने पर YouTube Terms और Developer Policies लागू होंगी। By using
-          YouTube-connected features, you also agree to applicable Google/YouTube platform terms.
+        <h2>3. Acceptable Use</h2>
+        <ul>
+          <li>Upload only content you own or have valid permission to use.</li>
+          <li>Do not upload illegal, infringing, harmful, abusive, or deceptive content.</li>
+          <li>Do not attempt to reverse engineer, disrupt, or misuse the Service or infrastructure.</li>
+          <li>Do not use the Service to violate third-party platform rules, including YouTube policies.</li>
+        </ul>
+
+        <h2>4. User Content and Intellectual Property</h2>
+        <p>
+          You retain ownership of content you upload. You grant TuneVid a limited license to process that
+          content solely to provide requested features. TuneVid retains all rights in its own software,
+          branding, interface, and platform materials.
         </p>
 
-        <h2>3.6 Availability &amp; Changes</h2>
-        <p className="text-zinc-400">
-          हम uptime maintain करने की कोशिश करते हैं, लेकिन uninterrupted service guarantee नहीं है।
-          Maintenance, upgrades, and feature changes बिना prior notice हो सकते हैं।
+        <h2>5. YouTube and Third-Party Integrations</h2>
+        <p>
+          If you connect a Google/YouTube account, your use is also subject to applicable Google and
+          YouTube terms and developer policies. You may revoke connected account access at any time from
+          your Google account permissions settings.
         </p>
 
-        <h2>3.7 Payments (if applicable)</h2>
-        <p className="text-zinc-400">
-          Paid plans/features होने पर pricing, renewal, cancellation और refund rules checkout/plan page पर
-          defined होंगे।
+        <h2>6. Payments, Plans, and Billing</h2>
+        <p>
+          If paid plans are offered, pricing, billing cycles, renewal terms, cancellation rules, and any
+          applicable refund policy are displayed on the relevant pricing and checkout pages.
         </p>
 
-        <h2>3.8 Limitation of Liability</h2>
-        <p className="text-zinc-400">
-          Service &quot;as is&quot; basis पर प्रदान की जाती है। Law द्वारा permitted extent तक TuneVid indirect/
-          consequential damages के लिए liable नहीं होगा।
+        <h2>7. Availability and Changes</h2>
+        <p>
+          We aim for reliable uptime, but uninterrupted availability is not guaranteed. Scheduled
+          maintenance, security updates, and operational incidents may affect service access.
         </p>
 
-        <h2>3.9 Termination</h2>
-        <p className="text-zinc-400">
-          Policy violation या misuse पर access suspend/terminate किया जा सकता है।
+        <h2>8. Disclaimer of Warranties</h2>
+        <p>
+          The Service is provided on an &quot;as is&quot; and &quot;as available&quot; basis, without warranties of any kind
+          to the maximum extent permitted by law.
         </p>
 
-        <h2>3.10 Governing Law</h2>
-        <p className="text-zinc-400">
-          ये Terms [Your Jurisdiction/Country/State] के applicable laws द्वारा governed होंगे।
+        <h2>9. Limitation of Liability</h2>
+        <p>
+          To the maximum extent permitted by law, TuneVid is not liable for indirect, incidental, special,
+          consequential, or punitive damages, or for loss of data, profits, or business opportunities.
         </p>
 
-        <h2>3.11 Contact</h2>
-        <p className="text-zinc-400">
-          Legal/support: <a href="mailto:9329238475x@gmail.com">9329238475x@gmail.com</a>
+        <h2>10. Suspension and Termination</h2>
+        <p>
+          We may suspend or terminate access for violations of these Terms, abuse, security risks, or legal
+          compliance requirements.
+        </p>
+
+        <h2>11. Governing Law</h2>
+        <p>
+          These Terms are governed by applicable laws of your service jurisdiction, subject to mandatory
+          consumer protection laws where applicable.
+        </p>
+
+        <h2>12. Contact</h2>
+        <p>
+          For legal or compliance questions, contact <a href="mailto:9329238475x@gmail.com">9329238475x@gmail.com</a>.
         </p>
       </article>
     </div>
