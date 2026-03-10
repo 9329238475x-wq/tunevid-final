@@ -1,8 +1,10 @@
-"use client";
+﻿"use client";
 
 import { ArrowLeft, Scissors } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 import ToolSeoDescription from "@/components/ToolSeoDescription";
+import ToolResourceSection from "@/components/ToolResourceSection";
+import { TOOL_RESOURCE_CONTENT } from "@/lib/tool-resource-content";
 export default function AudioTrimmerPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-16 text-zinc-900 dark:text-zinc-100">
@@ -34,8 +36,7 @@ export default function AudioTrimmerPage() {
           "Even when a tool is temporarily unavailable, planning your trim points in advance improves editing speed and keeps your production pipeline efficient."
         ]}
       />
+      <ToolResourceSection {...TOOL_RESOURCE_CONTENT["audio-trimmer"]} />
     </div>
   );
 }
-
-

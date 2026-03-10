@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -8,6 +8,8 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { Loader2, ScissorsLineDashed, Zap, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 import ToolSeoDescription from "@/components/ToolSeoDescription";
+import ToolResourceSection from "@/components/ToolResourceSection";
+import { TOOL_RESOURCE_CONTENT } from "@/lib/tool-resource-content";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -297,8 +299,7 @@ export default function SilenceRemoverPage() {
           "A balanced preset with slight cut padding usually gives the best result. TuneVid helps you tune these controls and measure how much duration you save."
         ]}
       />
+      <ToolResourceSection {...TOOL_RESOURCE_CONTENT["silence-remover"]} />
     </div>
   );
 }
-
-

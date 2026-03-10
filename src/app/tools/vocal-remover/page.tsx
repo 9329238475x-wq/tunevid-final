@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useMemo, useState } from "react";
 import useProgress from "@/hooks/useProgress";
@@ -28,6 +28,8 @@ import {
 } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 
+import ToolResourceSection from "@/components/ToolResourceSection";
+import { TOOL_RESOURCE_CONTENT } from "@/lib/tool-resource-content";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -551,7 +553,7 @@ export default function VocalRemoverPage() {
           "Model selection is a practical tradeoff between speed and fidelity. Faster models are useful for preview workflows and rough drafts, while fine-tuned models often preserve more detail in difficult passages. In creator workflows, vocal separation is most useful when paired with downstream tasks: karaoke creation, remix preparation, stem practice tracks, and content repurposing for social platforms. A reliable tool should provide stable exports, transparent progress feedback, and downloadable lossless files so creators can move from separation to final production without rework."
         ]}
       />
+      <ToolResourceSection {...TOOL_RESOURCE_CONTENT["vocal-remover"]} />
     </div>
   );
 }
-

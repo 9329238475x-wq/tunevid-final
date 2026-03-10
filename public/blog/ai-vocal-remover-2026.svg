@@ -1,0 +1,27 @@
+﻿<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#0B3B3C"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10B981"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="80" y="100" width="1040" height="430" rx="32" fill="rgba(15, 23, 42, 0.6)" stroke="rgba(148, 163, 184, 0.3)"/>
+  <rect x="120" y="140" width="320" height="8" rx="4" fill="url(#accent)"/>
+  <text x="120" y="230" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" fill="white">
+    AI Vocal Removers 2026
+  </text>
+  <text x="120" y="290" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#C7D2FE">
+    Studio-quality karaoke tracks with clean stems
+  </text>
+  <text x="120" y="360" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#94A3B8">
+    TuneVid Creator Blog
+  </text>
+  <circle cx="980" cy="315" r="120" fill="rgba(16, 185, 129, 0.15)"/>
+  <circle cx="980" cy="315" r="70" fill="rgba(34, 211, 238, 0.2)"/>
+</svg>
+

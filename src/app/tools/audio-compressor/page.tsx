@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -8,6 +8,8 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { HardDriveDownload, Loader2, Minimize2, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 import ToolSeoDescription from "@/components/ToolSeoDescription";
+import ToolResourceSection from "@/components/ToolResourceSection";
+import { TOOL_RESOURCE_CONTENT } from "@/lib/tool-resource-content";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 1024 * 1024 * 1024; // 1GB
 
@@ -275,8 +277,7 @@ export default function AudioCompressorPage() {
           "A good workflow is to keep a high-quality master and generate optimized delivery files per platform. TuneVid makes this practical by showing compression outcomes and export options in one place."
         ]}
       />
+      <ToolResourceSection {...TOOL_RESOURCE_CONTENT["audio-compressor"]} />
     </div>
   );
 }
-
-

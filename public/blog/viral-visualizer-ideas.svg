@@ -1,0 +1,27 @@
+﻿<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1120"/>
+      <stop offset="1" stop-color="#1E1B4B"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#F97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="90" width="1060" height="450" rx="32" fill="rgba(15, 23, 42, 0.55)" stroke="rgba(99, 102, 241, 0.3)"/>
+  <rect x="110" y="130" width="280" height="8" rx="4" fill="url(#accent)"/>
+  <text x="110" y="220" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700" fill="white">
+    5 Viral Visualizer Ideas
+  </text>
+  <text x="110" y="280" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#E2E8F0">
+    YouTube music videos that boost watch time
+  </text>
+  <text x="110" y="350" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#94A3B8">
+    TuneVid Creator Blog
+  </text>
+  <rect x="860" y="210" width="220" height="220" rx="28" fill="rgba(99, 102, 241, 0.2)"/>
+  <rect x="900" y="250" width="140" height="140" rx="22" fill="rgba(249, 115, 22, 0.18)"/>
+</svg>
+

@@ -21,38 +21,45 @@ export default function AboutPage() {
 
       <article className="legal-content rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
         <p>
-          TuneVid is a creator platform focused on practical audio tools, clean workflows, and clear publishing
-          outcomes. We build for musicians, podcasters, editors, and video creators who need fast results without
-          heavy desktop software.
+          TuneVid exists to help creators ship better audio and video content without heavy software or complicated
+          workflows. We build simple, reliable tools for musicians, podcasters, editors, and YouTube creators who need
+          professional results on a tight timeline.
         </p>
 
-        <h2>1. What We Do</h2>
+        <h2>1. Our Mission</h2>
+        <p>
+          We believe creative work should be accessible. That means fast tools, clear interfaces, and guidance that helps
+          you publish content safely and confidently. We focus on the real needs of creators: clean audio, consistent
+          output quality, and workflows that reduce busywork.
+        </p>
+
+        <h2>2. What Creators Can Expect</h2>
         <ul>
-          <li>Audio processing tools such as vocal separation, noise reduction, conversion, and mastering support.</li>
-          <li>Visualizer and export workflows designed for short-form and long-form publishing.</li>
-          <li>Simple web-based tools that run without complex local setup.</li>
+          <li>Practical audio utilities like vocal removal, noise cleanup, trimming, compression, and format conversion.</li>
+          <li>Visualizer-ready exports that make music uploads look polished on YouTube.</li>
+          <li>Web-based tools that work without installing heavy desktop software.</li>
         </ul>
 
-        <h2>2. Creator-First Principles</h2>
-        <ul>
-          <li>Usability first: clear controls, predictable outputs, and transparent processing behavior.</li>
-          <li>Privacy aware: we minimize data handling and keep processing scoped to user-requested actions.</li>
-          <li>Policy aligned: we encourage original, rights-cleared, and non-deceptive content workflows.</li>
-        </ul>
-
-        <h2>3. Content and Publishing Standards</h2>
+        <h2>3. Editorial and Content Standards</h2>
         <p>
-          We promote high-quality creator content. Users should upload only content they own or are authorized to use,
-          avoid copyright abuse, and follow platform rules on spam, misinformation, and harmful material.
+          Our blog and help content are written to be accurate, actionable, and honest about tradeoffs. We do not promise
+          instant success or guaranteed monetization. We encourage creators to use content they own or are authorized to
+          use, and to follow platform rules around copyright, spam, and misleading material.
         </p>
 
-        <h2>4. Advertising and Monetization Transparency</h2>
+        <h2>4. Privacy and Trust</h2>
         <p>
-          TuneVid may display ads to support free access. Ads do not influence tool outputs or editorial guidance. We
-          do not promise earnings, ranking guarantees, or instant monetization outcomes.
+          We minimize data handling and keep processing scoped to the actions you request. Our goal is to make tooling
+          that feels safe to use and transparent in how it works.
         </p>
 
-        <h2>5. Contact</h2>
+        <h2>5. Advertising and Monetization Transparency</h2>
+        <p>
+          TuneVid may show ads to keep the platform free. Ads do not affect tool outputs, rankings, or editorial guidance.
+          We focus on sustainable value, not shortcuts.
+        </p>
+
+        <h2>6. Contact</h2>
         <p>
           Business and support contact: <a href="mailto:9329238475x@gmail.com">9329238475x@gmail.com</a>
         </p>

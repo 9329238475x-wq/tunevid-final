@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -8,6 +8,8 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { Loader2, Mic, Waves, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 import ToolSeoDescription from "@/components/ToolSeoDescription";
+import ToolResourceSection from "@/components/ToolResourceSection";
+import { TOOL_RESOURCE_CONTENT } from "@/lib/tool-resource-content";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -262,8 +264,7 @@ export default function NoiseReducerPage() {
           "TuneVid's workflow supports quick before/after comparison so creators can optimize clarity for podcasts, vocals, and content audio before publishing."
         ]}
       />
+      <ToolResourceSection {...TOOL_RESOURCE_CONTENT["noise-reducer"]} />
     </div>
   );
 }
-
-

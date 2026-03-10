@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -8,6 +8,8 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { Loader2, Music, Sparkles, ArrowLeft, Download, AlertCircle, CheckCircle } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 import ToolSeoDescription from "@/components/ToolSeoDescription";
+import ToolResourceSection from "@/components/ToolResourceSection";
+import { TOOL_RESOURCE_CONTENT } from "@/lib/tool-resource-content";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -376,8 +378,7 @@ export default function SlowedReverbPage() {
           "Creators should compare original and processed versions, then export at high quality for distribution. TuneVid streamlines this process with preset and custom controls."
         ]}
       />
+      <ToolResourceSection {...TOOL_RESOURCE_CONTENT["slowed-reverb"]} />
     </div>
   );
 }
-
-

@@ -33,10 +33,13 @@ const TOOLS_LINKS = [
 ];
 
 const RESOURCE_LINKS = [
+  { label: "Blog", href: "/blog" },
   { label: "Creator Resources", href: "/resources" },
   { label: "About Us", href: "/about" },
+  { label: "Editorial Policy", href: "/editorial-policy" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms of Service", href: "/terms" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const STATS = [

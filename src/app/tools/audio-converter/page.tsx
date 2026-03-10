@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -8,6 +8,8 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { FileAudio, Loader2, UploadCloud, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 import ToolSeoDescription from "@/components/ToolSeoDescription";
+import ToolResourceSection from "@/components/ToolResourceSection";
+import { TOOL_RESOURCE_CONTENT } from "@/lib/tool-resource-content";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 100 * 1024 * 1024;
 
@@ -275,8 +277,7 @@ export default function AudioConverterPage() {
           "Reliable conversion tools should preserve metadata where possible, provide clear bitrate options, and avoid unnecessary processing that changes loudness or tonal balance."
         ]}
       />
+      <ToolResourceSection {...TOOL_RESOURCE_CONTENT["audio-converter"]} />
     </div>
   );
 }
-
-

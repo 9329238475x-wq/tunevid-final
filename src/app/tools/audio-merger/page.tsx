@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -8,6 +8,8 @@ import UsageLimitGuard from "@/components/UsageLimitGuard";
 import { ArrowDown, ArrowUp, Loader2, Trash2, UploadCloud, ArrowLeft } from "lucide-react";
 import SafeLink from "@/components/SafeLink";
 import ToolSeoDescription from "@/components/ToolSeoDescription";
+import ToolResourceSection from "@/components/ToolResourceSection";
+import { TOOL_RESOURCE_CONTENT } from "@/lib/tool-resource-content";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
 const MAX_FILE_SIZE = 500 * 1024 * 1024;
 
@@ -294,8 +296,7 @@ export default function AudioMergerPage() {
           "Before exporting, check ordering, spacing, and final format. TuneVid's merge workflow helps creators quickly test arrangement and download one polished master file."
         ]}
       />
+      <ToolResourceSection {...TOOL_RESOURCE_CONTENT["audio-merger"]} />
     </div>
   );
 }
-
-

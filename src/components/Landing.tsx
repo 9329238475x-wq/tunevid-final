@@ -21,6 +21,8 @@ import {
 } from "lucide-react";
 import { fadeInUpVariants, staggerContainer } from "@/utils/animations";
 import AnimatedButton from "./AnimatedButton";
+import BlogCard from "./BlogCard";
+import { getLatestPosts } from "@/lib/blog";
 
 const TOOLS_PREVIEW = [
     { icon: MicOff, label: "Vocal Remover", color: "text-blue-400" },
@@ -30,6 +32,8 @@ const TOOLS_PREVIEW = [
     { icon: Headphones, label: "8D Audio", color: "text-pink-400" },
     { icon: Zap, label: "Bass Booster", color: "text-red-400" },
 ];
+
+const LATEST_POSTS = getLatestPosts(3);
 
 type LandingProps = {
     seoContent?: ReactNode;
@@ -219,6 +223,37 @@ export default function Landing({ seoContent }: LandingProps) {
                         className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-600"
                     >
                         View all 13+ tools <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
+                    </Link>
+                </div>
+            </section>
+
+            {/* â”€â”€ FROM OUR BLOG â”€â”€ */}
+            <section className="space-y-6">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">From Our Blog</h2>
+                        <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+                            Actionable guides for AI audio tools, visualizers, and creator growth.
+                        </p>
+                    </div>
+                    <Link
+                        href="/blog"
+                        className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-emerald-600 hover:text-emerald-500 transition"
+                    >
+                        View all articles <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
+                    </Link>
+                </div>
+                <div className="grid gap-5 md:grid-cols-3">
+                    {LATEST_POSTS.map((post) => (
+                        <BlogCard key={post.slug} {...post} />
+                    ))}
+                </div>
+                <div className="sm:hidden text-center">
+                    <Link
+                        href="/blog"
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-600"
+                    >
+                        View all articles <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
                     </Link>
                 </div>
             </section>
