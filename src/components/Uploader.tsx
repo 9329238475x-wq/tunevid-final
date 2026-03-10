@@ -707,6 +707,7 @@ export default function Uploader() {
                             )}
                         </div>
                     </div>
+                    </>
                 )}
 
                 {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• PROCESSING PROGRESS (FULL VIEW) â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
