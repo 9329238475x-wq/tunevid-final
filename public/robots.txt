@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tunevid-final-di29.vercel.app/sitemap.xml

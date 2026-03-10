@@ -6,8 +6,8 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
   const pathname = request.nextUrl.pathname;
 
-  // Tool listing page (/tools) is public — individual tool pages require login
-  if (pathname === "/tools") {
+  // Keep tools public for indexing.
+  if (pathname === "/tools" || pathname.startsWith("/tools/")) {
     return NextResponse.next();
   }
 
@@ -21,12 +21,11 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Protect dashboard, create, profile, AND individual tool pages (not /tools listing)
+  // Protect authenticated-only areas.
   matcher: [
     "/dashboard/:path*",
     "/dashboard",
     "/create",
     "/profile",
-    "/tools/:path*",
   ],
 };
