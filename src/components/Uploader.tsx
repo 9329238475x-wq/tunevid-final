@@ -411,36 +411,36 @@ export default function Uploader() {
                 </div>
 
                 {!isProcessing && !youtubeUrl && (
-                    <div className="flex flex-col gap-4 md:flex-row">
-                        {/* STEP 1: FILE SELECTION */}
-                        <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition-all duration-200 dark:border-zinc-800 dark:bg-zinc-950 md:w-5/12 md:p-5">
-                            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100 md:mb-4">
+                    <>
+                        <input
+                            ref={unifiedUploadInputRef}
+                            type="file"
+                            accept=".mp3,.wav,.flac,.m4a,.ogg,.jpg,.jpeg,.png,.webp,audio/*,image/*"
+                            multiple
+                            className="hidden"
+                            onChange={(e) => {
+                                handleUnifiedUpload(e.target.files);
+                                e.currentTarget.value = "";
+                            }}
+                        />
+
+                        {/* Mobile-first Upload Files card */}
+                        <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition-all duration-200 dark:border-zinc-800 dark:bg-zinc-950 md:hidden">
+                            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                                 <CloudUpload className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
                                 Uploaded Files
                                 {bothUploaded && (
-                                    <span className="ml-auto flex items-center gap-1 text-[10px] font-medium text-emerald-600 dark:text-emerald-400 sm:text-xs">
+                                    <span className="ml-auto flex items-center gap-1 text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
                                         <CheckCircle className="h-3.5 w-3.5" /> Ready
                                     </span>
                                 )}
                             </div>
 
                             <div className="space-y-3">
-                                <input
-                                    ref={unifiedUploadInputRef}
-                                    type="file"
-                                    accept=".mp3,.wav,.flac,.m4a,.ogg,.jpg,.jpeg,.png,.webp,audio/*,image/*"
-                                    multiple
-                                    className="hidden"
-                                    onChange={(e) => {
-                                        handleUnifiedUpload(e.target.files);
-                                        e.currentTarget.value = "";
-                                    }}
-                                />
-
                                 <button
                                     type="button"
                                     onClick={() => unifiedUploadInputRef.current?.click()}
-                                    className="mx-auto flex items-center gap-1.5 rounded-md bg-blue-800 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700"
+                                    className="flex w-full items-center justify-center gap-2 rounded-md bg-blue-800 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700"
                                 >
                                     <Upload className="h-4 w-4" strokeWidth={1.8} />
                                     Upload files
@@ -497,6 +497,81 @@ export default function Uploader() {
                                 </div>
                             </div>
                         </div>
+
+                        <div className="flex flex-col gap-4 md:flex-row">
+                            {/* STEP 1: FILE SELECTION (desktop) */}
+                            <div className="hidden rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition-all duration-200 dark:border-zinc-800 dark:bg-zinc-950 md:block md:w-5/12 md:p-5">
+                                <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100 md:mb-4">
+                                    <CloudUpload className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
+                                    Uploaded Files
+                                    {bothUploaded && (
+                                        <span className="ml-auto flex items-center gap-1 text-[10px] font-medium text-emerald-600 dark:text-emerald-400 sm:text-xs">
+                                            <CheckCircle className="h-3.5 w-3.5" /> Ready
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className="space-y-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => unifiedUploadInputRef.current?.click()}
+                                        className="mx-auto flex items-center gap-1.5 rounded-md bg-blue-800 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700"
+                                    >
+                                        <Upload className="h-4 w-4" strokeWidth={1.8} />
+                                        Upload files
+                                    </button>
+
+                                    <div className={`flex items-center justify-between rounded-lg px-3 py-3 text-sm ${audioUploaded ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/15 dark:text-emerald-300" : "bg-rose-50 text-rose-700 dark:bg-rose-900/15 dark:text-rose-300"}`}>
+                                        <div className="flex min-w-0 items-center gap-2">
+                                            {audioUploaded ? <CheckCircle className="h-4 w-4 shrink-0" /> : <AlertCircle className="h-4 w-4 shrink-0" />}
+                                            <span className="truncate">{audioUploaded ? (audioFile?.name || "Audio uploaded") : "Audio not uploaded"}</span>
+                                        </div>
+                                        <div className="ml-2 flex items-center gap-2">
+                                            {audioUploading && <span className="text-xs">{audioUploadProgress}%</span>}
+                                            {audioFile && !audioUploading && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setAudioFile(null);
+                                                        setAudioFileId(null);
+                                                        setAudioUploaded(false);
+                                                        setAudioUploadProgress(0);
+                                                    }}
+                                                    className="rounded p-1 transition hover:bg-black/5 dark:hover:bg-white/10"
+                                                    aria-label="Remove audio"
+                                                >
+                                                    <X className="h-3.5 w-3.5" />
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className={`flex items-center justify-between rounded-lg px-3 py-3 text-sm ${imageUploaded ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/15 dark:text-emerald-300" : "bg-rose-50 text-rose-700 dark:bg-rose-900/15 dark:text-rose-300"}`}>
+                                        <div className="flex min-w-0 items-center gap-2">
+                                            {imageUploaded ? <CheckCircle className="h-4 w-4 shrink-0" /> : <AlertCircle className="h-4 w-4 shrink-0" />}
+                                            <span className="truncate">{imageUploaded ? (imageFile?.name || "Image uploaded") : "Image not uploaded"}</span>
+                                        </div>
+                                        <div className="ml-2 flex items-center gap-2">
+                                            {imageUploading && <span className="text-xs">{imageUploadProgress}%</span>}
+                                            {imageFile && !imageUploading && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setImageFile(null);
+                                                        setImageFileId(null);
+                                                        setImageUploaded(false);
+                                                        setImageUploadProgress(0);
+                                                    }}
+                                                    className="rounded p-1 transition hover:bg-black/5 dark:hover:bg-white/10"
+                                                    aria-label="Remove image"
+                                                >
+                                                    <X className="h-3.5 w-3.5" />
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         {/* STEP 2: VIDEO DETAILS */}
                         <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition-all duration-200 dark:border-zinc-800 dark:bg-zinc-950 md:w-7/12 md:p-5">
