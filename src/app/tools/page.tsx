@@ -62,7 +62,7 @@ const TOOL_CARDS = [
   },
   {
     title: "Audio Cutter & Trimmer",
-    description: "Precision waveform editor with visual selection. Temporarily unavailable while improvements are in progress.",
+    description: "Precision waveform editor with visual selection. Maintenance upgrades in progress for the next release.",
     href: "/tools/audio-trimmer",
     icon: Scissors,
     accent: "#6366f1",

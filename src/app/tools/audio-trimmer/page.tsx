@@ -15,7 +15,8 @@ export default function AudioTrimmerPage() {
         <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">Tools</p>
         <h1 className="mt-2 text-2xl font-semibold">Audio Cutter & Trimmer</h1>
         <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-300">
-          This tool is temporarily unavailable and will be back soon.
+          This tool is in scheduled maintenance while we upgrade the waveform editor. In the meantime, use the
+          guide below to plan precise cuts and keep your workflow moving.
         </p>
 
         <SafeLink
@@ -33,7 +34,7 @@ export default function AudioTrimmerPage() {
         articleParagraphs={[
           "Audio trimming removes unwanted sections and helps creators focus attention on key moments. A clean start and clean end can significantly improve listener retention.",
           "Professional trimming requires frame-accurate cuts, gentle fades at boundaries, and timing that matches the target platform's content format.",
-          "Even when a tool is temporarily unavailable, planning your trim points in advance improves editing speed and keeps your production pipeline efficient."
+          "Even during maintenance, planning your trim points in advance improves editing speed and keeps your production pipeline efficient."
         ]}
       />
       <ToolResourceSection {...TOOL_RESOURCE_CONTENT["audio-trimmer"]} />

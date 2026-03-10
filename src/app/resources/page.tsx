@@ -57,7 +57,9 @@ export default function ResourcesPage() {
 
         <h2>5. Related Pages</h2>
         <ul>
+          <li><Link href="/blog">Creator Blog</Link></li>
           <li><Link href="/about">About Us</Link></li>
+          <li><Link href="/editorial-policy">Editorial Policy</Link></li>
           <li><Link href="/privacy-policy">Privacy Policy</Link></li>
           <li><Link href="/terms">Terms of Service</Link></li>
           <li><Link href="/contact">Contact</Link></li>
