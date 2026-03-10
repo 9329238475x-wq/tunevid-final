@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/lib/blog";
 import { TOOL_RESOURCE_CONTENT } from "@/lib/tool-resource-content";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tunevid.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tunevid-final-di29.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
