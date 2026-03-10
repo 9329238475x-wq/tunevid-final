@@ -808,12 +808,30 @@ export default function Uploader() {
 
                 {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ERROR â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
                 {error && (
-                    <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-2.5 sm:gap-3 sm:p-4 dark:border-red-800/30 dark:bg-red-900/10">
-                        <span className="text-red-500 mt-0.5 shrink-0">âš ï¸</span>
-                        <p className="flex-1 text-xs text-red-600 dark:text-red-400 sm:text-sm">{error}</p>
-                        <button onClick={() => setError(null)} className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 shrink-0">
-                            <X className="w-4 h-4" />
-                        </button>
+                    <div className="flex flex-col gap-3 rounded-xl border border-red-200 bg-red-50 p-2.5 sm:p-4 dark:border-red-800/30 dark:bg-red-900/10">
+                        <div className="flex items-start gap-2 sm:gap-3">
+                            <span className="text-red-500 mt-0.5 shrink-0">âš ï¸</span>
+                            <p className="flex-1 text-xs text-red-600 dark:text-red-400 sm:text-sm">{error}</p>
+                            <button onClick={() => setError(null)} className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 shrink-0">
+                                <X className="w-4 h-4" />
+                            </button>
+                        </div>
+                        {error.toLowerCase().includes("youtube permission") ||
+                        error.toLowerCase().includes("insufficient") ? (
+                            <button
+                                onClick={() =>
+                                    signIn(
+                                        "google",
+                                        { callbackUrl: "/create" },
+                                        { prompt: "consent", access_type: "offline" }
+                                    )
+                                }
+                                className="inline-flex w-fit items-center gap-2 rounded-lg bg-zinc-900 px-4 py-2 text-xs font-semibold text-white hover:bg-zinc-800 transition dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+                            >
+                                <Youtube className="w-4 h-4" strokeWidth={1.5} />
+                                Reconnect YouTube
+                            </button>
+                        ) : null}
                     </div>
                 )}
 
