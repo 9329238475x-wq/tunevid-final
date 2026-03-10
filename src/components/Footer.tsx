@@ -42,11 +42,6 @@ const RESOURCE_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
-const STATS = [
-  { value: "13+", label: "Free Tools" },
-  { value: "1080p", label: "HD Quality" },
-  { value: "100%", label: "Free Forever" },
-];
 
 export default function Footer() {
   const { data: session } = useSession();
@@ -67,26 +62,6 @@ export default function Footer() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-b from-emerald-500/[0.03] to-transparent rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative bg-zinc-50/80 dark:bg-[#0a0a0b] backdrop-blur-sm">
-        {/* Stats banner */}
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="relative -top-6">
-            <div className="rounded-2xl border border-zinc-200/80 bg-white/90 backdrop-blur-xl shadow-lg shadow-zinc-900/[0.03] dark:border-zinc-800/60 dark:bg-zinc-900/80 dark:shadow-black/20">
-              <div className="grid grid-cols-3 divide-x divide-zinc-200/60 dark:divide-zinc-800/60">
-                {STATS.map((stat) => (
-                  <div key={stat.label} className="flex flex-col items-center justify-center py-5 px-4">
-                    <p className="text-xl sm:text-2xl font-bold bg-gradient-to-br from-emerald-500 to-cyan-500 bg-clip-text text-transparent">
-                      {stat.value}
-                    </p>
-                    <p className="text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-400 mt-0.5 tracking-wide uppercase">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Main footer content */}
         <div className="mx-auto max-w-6xl px-6 pb-8">
           <div className="grid gap-10 sm:gap-8 sm:grid-cols-2 lg:grid-cols-12">
