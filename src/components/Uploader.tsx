@@ -27,7 +27,9 @@ import {
     ExternalLink,
 } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
+const RAW_API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE || "";
+const API_BASE = RAW_API_BASE.replace(/\/$/, "");
+const LEGACY_API_BASE = API_BASE.endsWith("/api") ? API_BASE.slice(0, -4) : API_BASE;
 const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
 
 const fmt = (bytes: number) => `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
@@ -187,6 +189,40 @@ export default function Uploader() {
             saveTask(id);
             listenSSE(id);
         } catch (err) {
+            const status = axios.isAxiosError(err) ? err.response?.status : undefined;
+
+            // Fallback for older backends that only expose /upload_and_publish.
+            if (status === 404 && audioFile && imageFile) {
+                try {
+                    const legacyForm = new FormData();
+                    legacyForm.append("audio_file", audioFile);
+                    legacyForm.append("image_file", imageFile);
+                    legacyForm.append("title", title || audioFile?.name?.replace(/\.[^/.]+$/, "") || "Untitled");
+                    legacyForm.append("description", description);
+                    legacyForm.append("privacy_status", privacyStatus);
+                    legacyForm.append("made_for_kids", madeForKids);
+                    legacyForm.append("tags", tags);
+                    legacyForm.append("category_id", categoryId);
+                    legacyForm.append("youtube_access_token", (session as any).googleAccessToken ?? "");
+                    legacyForm.append("youtube_refresh_token", (session as any).refreshToken ?? "");
+
+                    const legacyRes = await axios.post(`${LEGACY_API_BASE}/upload_and_publish`, legacyForm);
+                    const id = legacyRes.data.task_id;
+                    setTaskId(id);
+                    saveTask(id);
+                    listenSSE(id);
+                    return;
+                } catch (legacyErr) {
+                    setIsProcessing(false);
+                    if (axios.isAxiosError(legacyErr)) {
+                        setError(legacyErr.response?.data?.detail ?? legacyErr.message);
+                    } else {
+                        setError("Something went wrong. Please try again.");
+                    }
+                    return;
+                }
+            }
+
             setIsProcessing(false);
             if (axios.isAxiosError(err)) {
                 setError(err.response?.data?.detail ?? err.message);
@@ -194,7 +230,7 @@ export default function Uploader() {
                 setError("Something went wrong. Please try again.");
             }
         }
-    }, [audioFileId, imageFileId, session, title, description, privacyStatus, madeForKids, tags, categoryId, audioFile, listenSSE]);
+    }, [audioFileId, imageFileId, session, title, description, privacyStatus, madeForKids, tags, categoryId, audioFile, imageFile, listenSSE]);
 
     // Auto-publish when both files are uploaded and checkbox is checked
     useEffect(() => {
